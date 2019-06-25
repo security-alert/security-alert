@@ -21,7 +21,7 @@ Install with [npm](https://www.npmjs.com/):
     --token  GitHub Token, or support enviroment variables - GITHUB_TOKEN=xxx
 
   Examples
-    $ create-security-alert-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open"
+    $ GITHUB_TOKEN=xxx create-security-alert-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open"
 
 
 ## Changelog

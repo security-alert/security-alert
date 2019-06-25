@@ -1,16 +1,28 @@
 # create-security-alert-issue
 
-[GitHub] Create an issue from security alert&#39;s url.
+[GitHub] Create an issue from security alert's url.
 
 ## Install
 
 Install with [npm](https://www.npmjs.com/):
 
-    npm install create-security-alert-issue
+    npm install create-security-alert-issue --global
 
 ## Usage
 
-- [ ] Write usage instructions
+  Usage
+    $ create-security-alert-issue <github-security-alert-url>
+
+  Inputs
+    <github-security-alert-url> GitHub Security Alert URL(open|closed)
+
+  Options
+    --dryRun Dry-Run when it is enabled
+    --token  GitHub Token, or support enviroment variables - GITHUB_TOKEN=xxx
+
+  Examples
+    $ create-security-alert-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open"
+
 
 ## Changelog
 

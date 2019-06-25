@@ -6,6 +6,9 @@ export function run() {
     Usage
       $ create-security-alert-issue <github-security-alert-url>
  
+    Inputs
+      <github-security-alert-url> GitHub Security Alert URL(open|closed)
+ 
     Options
       --dryRun Dry-Run when it is enabled
       --token  GitHub Token, or support enviroment variables - GITHUB_TOKEN=xxx

@@ -25,8 +25,11 @@
     "lib/",
     "src/"
   ],
-  "main": "lib/create-security-alert-issue.js",
-  "types": "lib/create-security-alert-issue.d.ts",
+  "bin": {
+    "create-security-alert-issue": "./bin/cmd.js"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "test"
@@ -62,6 +65,7 @@
   "devDependencies": {
     "@types/jest": "^24.0.0",
     "@types/lodash": "^4.14.134",
+    "@types/meow": "^5.0.0",
     "@types/nock": "^10.0.3",
     "@types/node": "^12.0.10",
     "cross-env": "^5.2.0",
@@ -77,6 +81,7 @@
   },
   "dependencies": {
     "@octokit/graphql": "^2.1.2",
-    "@octokit/rest": "^16.28.2"
+    "@octokit/rest": "^16.28.2",
+    "meow": "^5.0.0"
   }
 }

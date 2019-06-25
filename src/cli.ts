@@ -11,14 +11,27 @@ export function run() {
  
     Options
       --dryRun Dry-Run when it is enabled
-      --token  GitHub Token, or support enviroment variables - GITHUB_TOKEN=xxx
- 
+      --token  GitHub Token, or support environment variables - GITHUB_TOKEN=xxx
+      --assignees assignee user name. names are separated ,
+      --labels    label name. labels are separated , 
+      
     Examples
       $ GITHUB_TOKEN=xxx create-security-alert-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open"
+      $ GITHUB_TOKEN=xxx create-security-alert-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open" --labels "security,package"
+
 `, {
         flags: {
             dryRun: {
                 type: "boolean"
+            },
+            token: {
+                type: "string"
+            },
+            assignees: {
+                type: "string"
+            },
+            labels: {
+                type: "string"
             }
         },
         autoHelp: true,
@@ -30,10 +43,20 @@ export function run() {
         cli.showHelp(1);
         return;
     }
+    const arrayOption = (flags?: string): string[] => {
+        if (!flags) {
+            return [];
+        }
+        return flags.split(",").map(flag => flag.trim());
+    };
     const promises = cli.input.map(url => {
         return createFromURL(url, {
             token: token,
-            dryRun: cli.flags.dryRun
+            dryRun: cli.flags.dryRun,
+            issue: {
+                labels: arrayOption(cli.flags.labels),
+                assignees: arrayOption(cli.flags.assignees)
+            }
         }).then(result => {
             if (!result) {
                 return "";

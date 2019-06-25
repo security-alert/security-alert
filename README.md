@@ -11,18 +11,21 @@ Install with [npm](https://www.npmjs.com/):
 ## Usage
 
 ```
-  Usage
-    $ create-security-alert-issue <github-security-alert-url>
-
-  Inputs
-    <github-security-alert-url> GitHub Security Alert URL(open|closed)
-
-  Options
-    --dryRun Dry-Run when it is enabled
-    --token  GitHub Token, or support enviroment variables - GITHUB_TOKEN=xxx
-
-  Examples
-    $ GITHUB_TOKEN=xxx create-security-alert-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open"
+    Usage
+      $ create-security-alert-issue <github-security-alert-url>
+ 
+    Inputs
+      <github-security-alert-url> GitHub Security Alert URL(open|closed)
+ 
+    Options
+      --dryRun Dry-Run when it is enabled
+      --token  GitHub Token, or support environment variables - GITHUB_TOKEN=xxx
+      --assignees assignee user name. names are separated ,
+      --labels    label name. labels are separated , 
+      
+    Examples
+      $ GITHUB_TOKEN=xxx create-security-alert-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open"
+      $ GITHUB_TOKEN=xxx create-security-alert-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open" --labels "security,package"
 ```
 
 ## Changelog

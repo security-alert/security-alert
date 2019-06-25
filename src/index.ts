@@ -4,12 +4,19 @@ import { fetchVulnerabilityAlerts } from "./VulnerabilityAlerts";
 import { createIssue } from "./issue";
 
 export type CreatedOptions = {
+    // issue
+    issue: {
+        assignees?: string[]
+        labels?: string[]
+    }
     token: string;
     dryRun?: boolean;
 };
 
 export async function createFromURL(url: string, options: CreatedOptions) {
     const dryRun = options.dryRun !== undefined ? options.dryRun : false;
+    const assignees = options.issue.assignees ? options.issue.assignees : [];
+    const labels = options.issue.labels ? options.issue.labels : [];
     const pattern = /^https:\/\/github.com\/(?<owner>[0-9a-zA-Z-_.]+)\/(?<repo>[0-9a-zA-Z-_.]+)\/network\/alert\/(?<filepath>.+)\/(?<pacakgeName>[0-9a-zA-Z-_.]+)\/(open|closed)/;
     const matchObj = pattern.exec(url);
     if (!matchObj || !matchObj.groups) {
@@ -72,6 +79,9 @@ ${
         console.log(`Create Issue
 owner: ${owner}
 repo: ${repo}
+labels: ${labels.length > 0 ? labels.join(",") : ""}
+assignees: ${assignees.length > 0 ? assignees.join(",") : ""}
+repo: ${repo}
 title: ${title}
 body: ${body}
 `);
@@ -82,7 +92,9 @@ body: ${body}
             repo,
             title,
             body,
-            token: options.token
+            token: options.token,
+            assignees,
+            labels,
         });
     }
 }

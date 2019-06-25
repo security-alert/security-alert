@@ -17,7 +17,7 @@ export function run() {
       $ GITHUB_TOKEN=xxx create-security-alert-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open"
 `, {
         flags: {
-            dryRune: {
+            dryRun: {
                 type: "boolean"
             }
         },
@@ -33,7 +33,7 @@ export function run() {
     const promises = cli.input.map(url => {
         return createFromURL(url, {
             token: token,
-            dryRun: true
+            dryRun: cli.flags.dryRun
         }).then(result => {
             if (!result) {
                 return "";

@@ -10,6 +10,7 @@ Install with [npm](https://www.npmjs.com/):
 
 ## Usage
 
+```
   Usage
     $ create-security-alert-issue <github-security-alert-url>
 
@@ -22,7 +23,7 @@ Install with [npm](https://www.npmjs.com/):
 
   Examples
     $ GITHUB_TOKEN=xxx create-security-alert-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open"
-
+```
 
 ## Changelog
 

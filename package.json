@@ -1,6 +1,6 @@
 {
   "name": "create-security-alert-issue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "[GitHub] Create an issue from security alert's url.",
   "keywords": [
     "cli",

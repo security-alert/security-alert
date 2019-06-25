@@ -38,7 +38,7 @@ export function run() {
         autoVersion: true
     });
 
-    const token = process.env.GH_TOKEN || cli.flags.token;
+    const token = process.env.GITHUB_TOKEN || cli.flags.token;
     if (!token) {
         cli.showHelp(1);
         return;

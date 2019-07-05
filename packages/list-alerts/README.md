@@ -6,7 +6,11 @@ Show list of GitHub Security Alerts.
 
 Install with [npm](https://www.npmjs.com/):
 
-    npm install @security-alert/list-alerts
+    npm install @security-alert/list-alerts --global
+    
+Using with [npx](https://www.npmjs.com/package/npx):
+
+    npx @security-alert/list-alerts
 
 ## Usage
 

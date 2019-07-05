@@ -1,5 +1,4 @@
-import { fetchVulnerabilityAlerts } from "./VulnerabilityAlerts";
-import { fetchPackageDetails } from "./fetchPackageDetails";
+import {fetchPackageDetails, fetchVulnerabilityAlerts} from "@security-alert/share";
 
 export type listSecurityAlertsOptions = {
     token: string;

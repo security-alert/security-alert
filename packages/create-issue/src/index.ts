@@ -1,8 +1,7 @@
 // https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open
 //
-import { fetchVulnerabilityAlerts } from "./VulnerabilityAlerts";
-import { createIssue } from "./issue";
-import { fetchPackageDetails } from "./fetchPackageDetails";
+import {fetchPackageDetails, fetchVulnerabilityAlerts} from "@security-alert/share";
+import {createIssue} from "./issue";
 
 export type CreatedOptions = {
     // issue

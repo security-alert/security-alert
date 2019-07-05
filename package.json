@@ -8,7 +8,13 @@
   },
   "scripts": {
     "build": "lerna run build",
-    "test": "lerna run test"
+    "test": "lerna run test",
+    "versionup": "lerna version --conventional-commits --create-release github",
+    "versionup:patch": "lerna version patch --conventional-commits --create-release github",
+    "versionup:minor": "lerna version minor --conventional-commits --create-release github",
+    "versionup:major": "lerna version major --conventional-commits --create-release github",
+    "release": "lerna publish from-package",
+    "release:canary": "lerna publish --canary"
   },
   "repository": {
     "type": "git",
@@ -19,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/azu/security-alert/issues"
   },
-  "homepage": "https://github.com/azu/security-alert"
+  "homepage": "https://github.com/azu/security-alert",
+  "workspaces": [
+    "packages/*"
+  ]
 }

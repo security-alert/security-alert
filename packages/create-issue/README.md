@@ -1,4 +1,4 @@
-# create-security-alert-issue
+# @security-alert/create-issue
 
 [GitHub] Create an issue from security alert's url.
 
@@ -6,13 +6,18 @@
 
 Install with [npm](https://www.npmjs.com/):
 
-    npm install create-security-alert-issue --global
+    npm install @security-alert/create-issue --global
+    # Install `create-security-alert-issue`
+
+Using with [npx](https://www.npmjs.com/package/npx):
+
+    npx @security-alert/create-issue
 
 ## Usage
 
 ```
     Usage
-      $ create-security-alert-issue <github-security-alert-url>
+      $ npx @security-alert/create-issue <github-security-alert-url>
  
     Inputs
       <github-security-alert-url> GitHub Security Alert URL(open|closed)
@@ -24,8 +29,8 @@ Install with [npm](https://www.npmjs.com/):
       --labels    label name. labels are separated , 
       
     Examples
-      $ GITHUB_TOKEN=xxx create-security-alert-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open"
-      $ GITHUB_TOKEN=xxx create-security-alert-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open" --labels "security,package"
+      $ GITHUB_TOKEN=xxx npx @security-alert/create-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open"
+      $ GITHUB_TOKEN=xxx npx @security-alert/create-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open" --labels "security,package"
 ```
 
 ## Changelog

@@ -1,10 +1,10 @@
 import meow from "meow";
-import { listSecurityAlerts } from "./list";
+import { listSecurityAlerts } from "./index";
 
 export async function run() {
     const cli = meow(`
     Usage
-      $ list-security-alert-issue [option]
+      $ npx @security-alert/list-alerts [option]
  
     Options
       --repo   Repository to get details for
@@ -13,8 +13,8 @@ export async function run() {
       --format  json, text
   
     Examples
-      $ GITHUB_TOKEN=xxx list-security-alert-issue --repo github/desktop
-      $ GITHUB_TOKEN=xxx list-security-alert-issue --repo github/desktop --format json
+      $ GITHUB_TOKEN=xxx npx @security-alert/list-alerts --repo github/desktop
+      $ GITHUB_TOKEN=xxx npx @security-alert/list-alerts --repo github/desktop --format json
 
 `, {
         flags: {
@@ -55,8 +55,8 @@ export async function run() {
         return JSON.stringify(vulnerabilityAlerts);
     }else{
         return vulnerabilityAlerts.map(alert => {
-            return `
-- Title: ${alert.title} 
+            return `# ${alert.title} 
+
 - PackageName: ${alert.packageName} 
 - PackageUrl: ${alert.packageUrl} 
 - PackageVersion: ${alert.packageVersion} 
@@ -65,6 +65,6 @@ export async function run() {
 - VulnerableVersionRange: ${alert.vulnerableVersionRange} 
 - GitHubAlertUrl: ${alert.gitHubAlertUrl} 
 `
-        })
+        }).join("\n");
     }
 }

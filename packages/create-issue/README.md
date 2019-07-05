@@ -7,7 +7,7 @@
 Install with [npm](https://www.npmjs.com/):
 
     npm install @security-alert/create-issue --global
-    # Install `create-security-alert-issue`
+    # Install `security-alert-create-issue` command
 
 Using with [npx](https://www.npmjs.com/package/npx):
 
@@ -32,6 +32,10 @@ Using with [npx](https://www.npmjs.com/package/npx):
       $ GITHUB_TOKEN=xxx npx @security-alert/create-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open"
       $ GITHUB_TOKEN=xxx npx @security-alert/create-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open" --labels "security,package"
 ```
+
+## Example Issue
+
+- <https://github.com/azu/github-webhook-SecurityVulnerability-test/issues/8>
 
 ## Changelog
 

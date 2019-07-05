@@ -2,6 +2,7 @@
 //
 import { fetchVulnerabilityAlerts } from "./VulnerabilityAlerts";
 import { createIssue } from "./issue";
+import { fetchPackageDetails } from "./fetchPackageDetails";
 
 export type CreatedOptions = {
     // issue
@@ -36,19 +37,28 @@ export async function createFromURL(url: string, options: CreatedOptions) {
     const targetAlert = vulnerabilityAlerts.find(alert => {
         return alert.vulnerableManifestPath === filepath && alert.securityVulnerability.package.name === packageName;
     });
-
     if (!targetAlert) {
         throw new Error("Not found security vulnerability for " + url);
     }
+    const targetDetails = await fetchPackageDetails({
+        owner: owner,
+        repo: repo,
+        token: options.token,
+        packageName: targetAlert.securityVulnerability.package.name,
+        packageFilePath: targetAlert.vulnerableManifestPath
+    });
     const title = `Vulnerability found in ${targetAlert.securityVulnerability.package.name} ${targetAlert.securityVulnerability.vulnerableVersionRange}`;
     const body = `
 ## Vulnerability Information
 
-- Package name:  [${targetAlert.securityVulnerability.package.name}](https://www.npmjs.com/package/${targetAlert.securityVulnerability.package.name}) 
-- Vulnerable versions: ${targetAlert.securityVulnerability.vulnerableVersionRange}
-- Patched version: ${targetAlert.securityVulnerability.firstPatchedVersion.identifier}
+- Package name:  [${targetAlert.securityVulnerability.package.name}](https://www.npmjs.com/package/${targetAlert.securityVulnerability.package.name})
+- Package version: ${targetDetails.version}
+- Package Manifest: ${targetDetails.packageManifestUrl}
+- Dependencies type: ${targetDetails.dependenciesType}
+- Vulnerable version: ${targetAlert.securityVulnerability.vulnerableVersionRange}
+- Patched version: ${targetAlert.securityVulnerability.firstPatchedVersion ? targetAlert.securityVulnerability.firstPatchedVersion.identifier : "none"}
 - GitHub Alert: <${url}>
-
+${targetAlert.securityVulnerability.firstPatchedVersion ? `
 ## How to fix?
 
 Upgrade ${targetAlert.securityVulnerability.package.name} to version ${targetAlert.securityVulnerability.firstPatchedVersion.identifier} or later. For example:
@@ -67,6 +77,7 @@ or…
 }
 \`\`\`
 
+` : ""}
 ## Details
 
 ${
@@ -94,7 +105,7 @@ body: ${body}
             body,
             token: options.token,
             assignees,
-            labels,
+            labels
         });
     }
 }

@@ -292,6 +292,11 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^12.0.9"
 
+"@npm/types@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@npm/types/-/types-1.0.1.tgz#6b378d8ef427ddaf2efa967b4530de793dbc2de2"
+  integrity sha512-+tTwymYjZrm7s5KPcS6Abq2l1wVlsk0Jxx4RWMMlC9BePNK4BGMaXUKWphdi7xAYJNA+lwqIqFK6hcNrMu/HFg==
+
 "@octokit/endpoint@^5.1.0":
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/@octokit/endpoint/-/endpoint-5.2.0.tgz#acd569cb7152549998454aa5658532eb24a0987e"

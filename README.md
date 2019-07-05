@@ -23,7 +23,7 @@ See [Releases page](https://github.com/azu/create-security-alert-issue/releases)
 
     git checkout -b release-branch
     git push -u
-    npm run versionup
+    GH_TOKEN=xxx npm run versionup
     npm run release # use npm instead of yarn
 
 ## Contributing

@@ -13,11 +13,18 @@ A Command Line ToolKit for GitHub Security Alert.
 
 See [Releases page](https://github.com/azu/create-security-alert-issue/releases).
 
-## Running tests
+## Development
 
-Install devDependencies and Run `npm test`:
+    yarn install
+    yarn run build
+    yarn test
+    
+## Release Workflow
 
-    npm test
+    git checkout -b release-branch
+    git push -u
+    npm run versionup
+    npm run release # use npm instead of yarn
 
 ## Contributing
 

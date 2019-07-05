@@ -1,4 +1,4 @@
-# @security-alert monorepo
+# @security-alert monorepo [![Build Status](https://travis-ci.org/azu/security-alert.svg?branch=master)](https://travis-ci.org/azu/security-alert)
 
 A Command Line ToolKit for GitHub Security Alert.
 

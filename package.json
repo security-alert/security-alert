@@ -1,88 +1,23 @@
 {
-  "name": "create-security-alert-issue",
-  "version": "1.1.0",
-  "description": "[GitHub] Create an issue from security alert's url.",
-  "keywords": [
-    "cli",
-    "console",
-    "github",
-    "issue",
-    "security",
-    "tool"
-  ],
-  "homepage": "https://github.com/azu/create-security-alert-issue",
-  "bugs": {
-    "url": "https://github.com/azu/create-security-alert-issue/issues"
+  "private": true,
+  "name": "security-alert",
+  "version": "1.0.0",
+  "description": "security-alert monorepo",
+  "devDependencies": {
+    "lerna": "^3.15.0"
+  },
+  "scripts": {
+    "build": "lerna run build",
+    "test": "lerna run test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/azu/create-security-alert-issue.git"
+    "url": "git+https://github.com/azu/security-alert.git"
   },
-  "license": "MIT",
   "author": "azu",
-  "files": [
-    "bin/",
-    "lib/",
-    "src/"
-  ],
-  "bin": {
-    "create-security-alert-issue": "./bin/cmd.js"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/azu/security-alert/issues"
   },
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "directories": {
-    "lib": "lib",
-    "test": "test"
-  },
-  "scripts": {
-    "build": "cross-env NODE_ENV=production tsc -p .",
-    "clean": "rimraf lib/",
-    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\"",
-    "prepublish": "npm run --if-present build",
-    "test": "# jest",
-    "test:watch": "jest --watch --notify --notifyMode=change --coverage",
-    "watch": "tsc -p . --watch"
-  },
-  "jest": {
-    "testEnvironment": "node"
-  },
-  "husky": {
-    "hooks": {
-      "precommit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,css}": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "prettier": {
-    "printWidth": 120,
-    "singleQuote": false,
-    "tabWidth": 4
-  },
-  "devDependencies": {
-    "@types/jest": "^24.0.0",
-    "@types/lodash": "^4.14.134",
-    "@types/meow": "^5.0.0",
-    "@types/nock": "^10.0.3",
-    "@types/node": "^12.0.10",
-    "cross-env": "^5.2.0",
-    "husky": "^2.5.0",
-    "jest": "^24.0.0",
-    "lint-staged": "^8.2.1",
-    "nock": "^10.0.6",
-    "prettier": "^1.18.2",
-    "rimraf": "^2.6.3",
-    "ts-node": "^8.3.0",
-    "ts-node-test-register": "^8.0.1",
-    "typescript": "^3.5.2"
-  },
-  "dependencies": {
-    "@npm/types": "^1.0.1",
-    "@octokit/graphql": "^2.1.2",
-    "@octokit/rest": "^16.28.2",
-    "meow": "^5.0.0"
-  }
+  "homepage": "https://github.com/azu/security-alert"
 }

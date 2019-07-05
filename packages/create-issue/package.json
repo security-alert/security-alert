@@ -85,5 +85,9 @@
     "@octokit/rest": "^16.28.2",
     "@security-alert/share": "^1.1.1",
     "meow": "^5.0.0"
+  },
+  "gitHead": "ad7914038cd53ca2b0676071f9da572692d6e171",
+  "publishConfig": {
+    "access": "public"
   }
 }

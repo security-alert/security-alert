@@ -40,11 +40,7 @@
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\"",
     "prepublish": "npm run --if-present build",
     "test": "# jest",
-    "test:watch": "jest --watch --notify --notifyMode=change --coverage",
     "watch": "tsc -p . --watch"
-  },
-  "jest": {
-    "testEnvironment": "node"
   },
   "husky": {
     "hooks": {

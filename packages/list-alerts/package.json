@@ -43,9 +43,6 @@
     "test:watch": "jest --watch --notify --notifyMode=change --coverage",
     "watch": "tsc -p . --watch"
   },
-  "jest": {
-    "testEnvironment": "node"
-  },
   "husky": {
     "hooks": {
       "precommit": "lint-staged"

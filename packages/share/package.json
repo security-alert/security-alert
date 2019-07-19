@@ -39,9 +39,6 @@
     "test": "mocha \"test/**/*.ts\"",
     "watch": "tsc -p . --watch"
   },
-  "jest": {
-    "testEnvironment": "node"
-  },
   "husky": {
     "hooks": {
       "precommit": "lint-staged"

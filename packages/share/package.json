@@ -36,7 +36,7 @@
     "clean": "rimraf lib/",
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\"",
     "prepublish": "npm run --if-present build",
-    "test": "# jest",
+    "test": "jest",
     "test:watch": "jest --watch --notify --notifyMode=change --coverage",
     "watch": "tsc -p . --watch"
   },
@@ -60,15 +60,15 @@
     "tabWidth": 4
   },
   "devDependencies": {
-    "@types/jest": "^24.0.0",
     "@types/lodash": "^4.14.134",
     "@types/meow": "^5.0.0",
+    "@types/mocha": "^5.2.7",
     "@types/nock": "^10.0.3",
     "@types/node": "^12.0.10",
     "cross-env": "^5.2.0",
     "husky": "^2.5.0",
-    "jest": "^24.0.0",
     "lint-staged": "^8.2.1",
+    "mocha": "^6.2.0",
     "nock": "^10.0.6",
     "prettier": "^1.18.2",
     "rimraf": "^2.6.3",
@@ -80,6 +80,7 @@
     "@npm/types": "^1.0.1",
     "@octokit/graphql": "^2.1.2",
     "@octokit/rest": "^16.28.2",
+    "@yarnpkg/lockfile": "^1.0.0",
     "meow": "^5.0.0"
   },
   "gitHead": "ad7914038cd53ca2b0676071f9da572692d6e171",

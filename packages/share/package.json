@@ -36,8 +36,7 @@
     "clean": "rimraf lib/",
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\"",
     "prepublish": "npm run --if-present build",
-    "test": "jest",
-    "test:watch": "jest --watch --notify --notifyMode=change --coverage",
+    "test": "mocha \"test/**/*.ts\"",
     "watch": "tsc -p . --watch"
   },
   "jest": {

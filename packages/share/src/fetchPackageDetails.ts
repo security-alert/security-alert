@@ -78,7 +78,7 @@ export async function fetchPackageDetails(options: fetchPackageOptions): Promise
             ...lookupYarnLockDetails({
                 packageName: options.packageName,
                 packageFilePath: options.packageFilePath,
-                pkg: JSON.parse(pkg.content)
+                pkg: lockfile.parse(pkg.content)
             }),
             packageManifestUrl: pkg.html_url
         };

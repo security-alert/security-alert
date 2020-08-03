@@ -1028,6 +1028,16 @@
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
 
+"@types/sarif@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@types/sarif/-/sarif-2.1.2.tgz#91d9f9e793fadbba36239f03ec996987b2e25635"
+  integrity sha512-TELZl5h48KaB6SFZqTuaMEw1hrGuusbBcH+yfMaaHdS2pwDr3RTH4CVN0LyY1kqSiDm9PPvAMx8FJ0LUZreOCQ==
+
+"@types/url-join@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@types/url-join/-/url-join-4.0.0.tgz#72eff71648a429c7d4acf94e03780e06671369bd"
+  integrity sha512-awrJu8yML4E/xTwr2EMatC+HBnHGoDxc2+ImA9QyeUELI1S7dOCIZcyjki1rkwoA8P2D2NVgLAJLjnclkdLtAw==
+
 "@yarnpkg/lockfile@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@yarnpkg/lockfile/-/lockfile-1.1.0.tgz#e77a97fbd345b76d83245edcd17d393b1b41fb31"
@@ -3754,6 +3764,11 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
+markdown-escape@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/markdown-escape/-/markdown-escape-1.1.0.tgz#228c932a47af251bb0a2d18d6001a235403777f2"
+  integrity sha512-f1+ARFbzLrBdC0Lj30uREn+zthrK/h1PO5UhN5IMDQvI2lSFn+8U06a5LHaxxYMhHD0mJoJ2BROJ/Sju5aw6+g==
+
 meow@^3.3.0:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/meow/-/meow-3.7.0.tgz#72cb668b425228290abbfa856892587308a801fb"
@@ -5925,6 +5940,11 @@ urix@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/urix/-/urix-0.1.0.tgz#da937f7a62e21fec1fd18d49b35c2935067a6c72"
   integrity sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=
+
+url-join@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/url-join/-/url-join-4.0.1.tgz#b642e21a2646808ffa178c4c5fda39844e12cde7"
+  integrity sha512-jk1+QP6ZJqyOiuEI9AEWQfju/nB2Pw466kbA0LEZljHwKeMgd9WrAEgEGxjPDD2+TNbbb37rTyhEfrCXfuKXnA==
 
 use@^3.1.0:
   version "3.1.1"

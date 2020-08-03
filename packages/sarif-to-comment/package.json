@@ -1,0 +1,66 @@
+{
+  "name": "@security-alert/sarif-to-comment",
+  "version": "1.0.0",
+  "description": "post comment to GitHub issue/pull requests",
+  "keywords": [
+    "sarif",
+    "github",
+    "security",
+    "tool",
+    "cli"
+  ],
+  "homepage": "https://github.com/azu/security-alert/tree/master/packages/sarif-to-comment/",
+  "bugs": {
+    "url": "https://github.com/azu/security-alert/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/azu/security-alert.git"
+  },
+  "license": "MIT",
+  "author": "azu",
+  "sideEffects": false,
+  "main": "lib/index.js",
+  "module": "module/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "module"
+  ],
+  "scripts": {
+    "build": "tsc -p . && tsc --project ./tsconfig.module.json",
+    "clean": "rimraf lib/ module/",
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\"",
+    "prepublish": "npm run --if-present build",
+    "test": "mocha \"test/**/*.ts\"",
+    "watch": "tsc -p . --watch"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": false,
+    "tabWidth": 4,
+    "trailingComma": "none"
+  },
+  "dependencies": {
+    "meow": "^7.0.1",
+    "@security-alert/sarif-to-markdown": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^8.0.1",
+    "@types/node": "^14.0.27",
+    "mocha": "^8.1.0",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.10.2",
+    "ts-node-test-register": "^8.0.1",
+    "typescript": "^3.9.7"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

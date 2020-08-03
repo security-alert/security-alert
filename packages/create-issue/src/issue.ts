@@ -1,11 +1,11 @@
-import Octokit, { IssuesCreateParams } from "@octokit/rest";
+import { Octokit, RestEndpointMethodTypes } from "@octokit/rest";
 
 export type createIssueOptions = {
     token: string;
-} & IssuesCreateParams
+} & RestEndpointMethodTypes["issues"]["create"]["parameters"]
 
-export async function createIssue(options: createIssueOptions): Promise<Octokit.IssuesCreateResponse> {
-    const { token , ...issueOption} = options;
+export async function createIssue(options: createIssueOptions): Promise<RestEndpointMethodTypes["issues"]["create"]["response"]["data"]> {
+    const {token, ...issueOption} = options;
 
     const octokit = new Octokit({
         auth: token

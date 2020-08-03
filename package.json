@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "security-alert monorepo",
   "devDependencies": {
-    "lerna": "^3.15.0"
+    "lerna": "^3.22.1"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",

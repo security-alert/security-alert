@@ -1,4 +1,4 @@
-import Octokit from "@octokit/rest";
+import { Octokit } from "@octokit/rest";
 import {isPackage, lookupPackageDetails} from "./parser/package.json";
 import {isPackageLock, lookupPackageLockDetails} from "./parser/package-lock.json";
 import {PackageDetails} from "./parser/Details";
@@ -33,7 +33,7 @@ export async function fetchPackageDetails(options: fetchPackageOptions): Promise
     const pkg = cachedValue
         ? cachedValue
         : await octokit.repos
-            .getContents({
+            .getContent({
                 repo: options.repo,
                 owner: options.owner,
                 path: options.packageFilePath

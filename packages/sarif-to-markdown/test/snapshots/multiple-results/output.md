@@ -47,3 +47,7 @@
 
 https://github.com/owner/repo/tree/undefined/base/examples/Xss.js#L4
 
+- **js/xss**: Cross-site scripting vulnerability due to \[user-provided value\]\(1\).
+
+https://github.com/owner/repo/tree/undefined/base/examples/Xss2.js#L4
+

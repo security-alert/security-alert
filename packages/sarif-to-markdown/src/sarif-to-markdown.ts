@@ -99,6 +99,7 @@ ${run.results?.map(result => {
                 return `- **${result.ruleId}**: ${escape(result.message.text)}`
                     + "\n\n"
                     + createCodeURL(result, options).join("\n")
+                    + "\n"
             }).join("\n")}
 `
             return {

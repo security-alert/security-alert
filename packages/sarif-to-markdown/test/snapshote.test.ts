@@ -22,7 +22,6 @@ describe("Snapshot testing", () => {
                         "sourceRoot": "base"
                     };
                 const actualResults = sarifToMarkdown(actualOptions)(actualContent);
-                console.log(actualResults);
                 const actualResultsMd = actualResults.map(result => result.body).join("\n\n---\n\n");
                 const expectedFilePath = path.join(fixtureDir, "output.md");
                 // Usage: update snapshots

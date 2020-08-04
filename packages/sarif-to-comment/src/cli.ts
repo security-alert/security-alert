@@ -31,7 +31,7 @@ export function run() {
             token: {
                 type: "string"
             },
-            commentURL: {
+            commentUrl: {
                 type: "string",
                 isRequired: true
             },
@@ -65,7 +65,7 @@ export function run() {
         return postComment({
             token: token,
             dryRun: cli.flags.dryRun,
-            postingURL: cli.flags.commentURL,
+            postingURL: cli.flags.commentUrl,
             sarifContent: content,
             sarifContentOwner: cli.flags.sarifContentOwner,
             sarifContentBranch: cli.flags.sarifContentBranch,

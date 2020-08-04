@@ -32,7 +32,7 @@ const createCodeURL = (result: Result, options: sarifFormatterOptions): string[]
             return [];
         }
         const lineNumber = physicalLocation.region.endLine !== undefined ? `L${physicalLocation.region.startLine}-${physicalLocation.region.endLine}` : `L${physicalLocation.region.startLine}`;
-        return urlJoin(githubHost, options.owner, options.repo, `tree/${options.branch}`, options.sourceRoot, `${physicalLocation.artifactLocation.uri}#${lineNumber}`);
+        return urlJoin(githubHost, options.owner, options.repo, `blob/${options.branch}`, options.sourceRoot, `${physicalLocation.artifactLocation.uri}#${lineNumber}`);
     });
 
 }

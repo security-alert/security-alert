@@ -20,6 +20,6 @@ describe('yarn-lock', function () {
             packageFilePath: filePath,
             version: '7.5.0',
             dependenciesType: 'unknown'
-        })
-    })
+        });
+    });
 });

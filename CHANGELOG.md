@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.3](https://github.com/azu/security-alert/compare/v1.3.2...v1.3.3) (2020-08-04)
+
+
+### Bug Fixes
+
+* **sarif-to-comment:** fix commentUrl ([4e4ac69](https://github.com/azu/security-alert/commit/4e4ac694988e24e21b9dcdf215c4075cf5fedf5d))
+* **sarif-to-comment:** fix commentUrl ([a26bf90](https://github.com/azu/security-alert/commit/a26bf905aaffad043cf64bae7ace20bcf9d4e72d))
+
+
+
+
+
 ## [1.3.2](https://github.com/azu/security-alert/compare/v1.3.1...v1.3.2) (2020-08-04)
 
 

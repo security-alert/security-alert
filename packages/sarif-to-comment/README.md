@@ -2,6 +2,12 @@
 
 Post comment to GitHub issue/pull requests.
 
+## Purpose
+
+It aims to post [CodeQL](https://securitylab.github.com/tools/codeql) result to GitHub Issue as comment.
+
+It optimizes the formatter of SARIF for [SARIF output — CodeQL](https://help.semmle.com/codeql/codeql-cli/reference/sarif-overview.html).
+
 ## Install
 
 Install with [npm](https://www.npmjs.com/):
@@ -26,8 +32,14 @@ Install with [npm](https://www.npmjs.com/):
       --sarifContentSourceRoot      Base path to sarif scanned source. You can set CodeQL's sourceLocationPrefix as relative value if necessary
   
     Examples
+      # DryRun and preview it!
       $ GITHUB_TOKEN=xxx npx @security-alert/sarif-to-comment --commentUrl "https://github.com/owner/repo/issues/1" --sarifContentOwner "owner" --sarifContentRepo "repo" --sarifContentBranch "master" "./codeql_result.sarif"
+      # Post It
+      $ GITHUB_TOKEN=xxx npx @security-alert/sarif-to-comment --commentUrl "https://github.com/owner/repo/issues/1" --sarifContentOwner "owner" --sarifContentRepo "repo" --sarifContentBranch "master" "./codeql_result.sarif"
+      # Set base path
       $ GITHUB_TOKEN=xxx npx @security-alert/sarif-to-comment --commentUrl "https://github.com/owner/another/issues/1" --sarifContentOwner "owner" --sarifContentRepo "repo" --sarifContentBranch "develop" --sarifContentSourceRoot "./basepath" "./codeql_result.sarif"
+      # use HEAD sha for link
+      $ GITHUB_TOKEN=xxx npx @security-alert/sarif-to-comment --commentUrl "https://github.com/owner/another/issues/1" --sarifContentOwner "owner" --sarifContentRepo "repo" ---sarifContentBranch `git rev-parse HEAD` "./codeql_result.sarif"
 
 ## Changelog
 

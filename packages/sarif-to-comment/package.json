@@ -28,7 +28,7 @@
     "test": "test"
   },
   "bin": {
-    "sarif-to-comment": "./bin/sarif-to-comment"
+    "sarif-to-comment": "./bin/cmd.js"
   },
   "files": [
     "bin/",

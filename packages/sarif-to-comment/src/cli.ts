@@ -20,8 +20,8 @@ export function run() {
       --sarifContentSourceRoot      Base path to sarif scanned source. You can set CodeQL's sourceLocationPrefix as relative value if necessary
   
     Examples
-      $ GITHUB_TOKEN=xxx npx @security-alert/post-comment --commentURL "https://github.com/owner/repo/issues/1" --sarifContentOwner "owner" --sarifContentRepo "repo" --sarifContentBranch "master" "./codeql_result.sarif"
-      $ GITHUB_TOKEN=xxx npx @security-alert/post-comment --commentURL "https://github.com/owner/another/issues/1" --sarifContentOwner "owner" --sarifContentRepo "repo" --sarifContentBranch "develop" --sarifContentSourceRoot "./basepath" "./codeql_result.sarif"
+      $ GITHUB_TOKEN=xxx npx @security-alert/sarif-to-comment --commentURL "https://github.com/owner/repo/issues/1" --sarifContentOwner "owner" --sarifContentRepo "repo" --sarifContentBranch "master" "./codeql_result.sarif"
+      $ GITHUB_TOKEN=xxx npx @security-alert/sarif-to-comment --commentURL "https://github.com/owner/another/issues/1" --sarifContentOwner "owner" --sarifContentRepo "repo" --sarifContentBranch "develop" --sarifContentSourceRoot "./basepath" "./codeql_result.sarif"
 
 `, {
         flags: {

@@ -13,15 +13,15 @@ export function run() {
     Options
       --dryRun                      Dry-Run when it is enabled
       --token                       GitHub Token, or support environment variables - GITHUB_TOKEN=xxx
-      --commentURL                  Post to comment URL. e.g. https://github.com/owner/repo/issues/85
+      --commentUrl                  Post to comment URL. e.g. https://github.com/owner/repo/issues/85
       --sarifContentOwner           GitHub Owner name of sarif content result.  e.g. "owner"
       --sarifContentRepo            GitHub Repository name of sarif content result. e.g. "repo"
       --sarifContentBranch          GitHub Repository branch name of sarif content result. e.g. "master"
       --sarifContentSourceRoot      Base path to sarif scanned source. You can set CodeQL's sourceLocationPrefix as relative value if necessary
   
     Examples
-      $ GITHUB_TOKEN=xxx npx @security-alert/sarif-to-comment --commentURL "https://github.com/owner/repo/issues/1" --sarifContentOwner "owner" --sarifContentRepo "repo" --sarifContentBranch "master" "./codeql_result.sarif"
-      $ GITHUB_TOKEN=xxx npx @security-alert/sarif-to-comment --commentURL "https://github.com/owner/another/issues/1" --sarifContentOwner "owner" --sarifContentRepo "repo" --sarifContentBranch "develop" --sarifContentSourceRoot "./basepath" "./codeql_result.sarif"
+      $ GITHUB_TOKEN=xxx npx @security-alert/sarif-to-comment --commentUrl "https://github.com/owner/repo/issues/1" --sarifContentOwner "owner" --sarifContentRepo "repo" --sarifContentBranch "master" "./codeql_result.sarif"
+      $ GITHUB_TOKEN=xxx npx @security-alert/sarif-to-comment --commentUrl "https://github.com/owner/another/issues/1" --sarifContentOwner "owner" --sarifContentRepo "repo" --sarifContentBranch "develop" --sarifContentSourceRoot "./basepath" "./codeql_result.sarif"
 
 `, {
         flags: {

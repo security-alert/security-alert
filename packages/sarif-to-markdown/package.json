@@ -1,6 +1,6 @@
 {
   "name": "@security-alert/sarif-to-markdown",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "description": "Convert Sarif format to body text",
   "keywords": [
     "sarif",
@@ -46,9 +46,9 @@
     "trailingComma": "none"
   },
   "dependencies": {
-    "url-join": "^4.0.1",
+    "@types/sarif": "^2.1.2",
     "markdown-escape": "^1.1.0",
-    "@types/sarif": "^2.1.2"
+    "url-join": "^4.0.1"
   },
   "devDependencies": {
     "@types/mocha": "^8.0.1",

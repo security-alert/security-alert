@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.5](https://github.com/azu/security-alert/compare/v1.3.4...v1.3.5) (2020-08-05)
+
+
+### Bug Fixes
+
+* **sarif-to-comment:** does not post when results is empty ([275f0b5](https://github.com/azu/security-alert/commit/275f0b55482d0ab8fad9dd1f4a4470f0e5b42212))
+
+
+
+
+
 ## [1.3.4](https://github.com/azu/security-alert/compare/v1.3.3...v1.3.4) (2020-08-04)
 
 **Note:** Version bump only for package @security-alert/sarif-to-comment

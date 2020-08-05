@@ -19,6 +19,7 @@ describe("Snapshot testing", () => {
                     : {
                         "owner": "owner",
                         "repo": "repo",
+                        "branch": "master",
                         "sourceRoot": "base"
                     };
                 const actualResults = sarifToMarkdown(actualOptions)(actualContent);

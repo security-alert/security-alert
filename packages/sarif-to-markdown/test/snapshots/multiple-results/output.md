@@ -1,6 +1,6 @@
-# CodeQL command-line toolchain
+## Rules
 <!-- Rule Info -->
-**js/xss**
+**js/xss** (severity: **error**)
 
 > Client-side cross-site scripting
  
@@ -45,9 +45,9 @@
 
 - **js/xss**: Cross-site scripting vulnerability due to \[user-provided value\]\(1\).
 
-https://github.com/owner/repo/blob/undefined/base/examples/Xss.js#L4
+https://github.com/owner/repo/blob/master/base/examples/Xss.js#L4
 
 - **js/xss**: Cross-site scripting vulnerability due to \[user-provided value\]\(1\).
 
-https://github.com/owner/repo/blob/undefined/base/examples/Xss2.js#L4
+https://github.com/owner/repo/blob/master/base/examples/Xss2.js#L4
 

@@ -1,4 +1,3 @@
-# This Is Title
 ## Rules
 <!-- Rule Info -->
 **js/xss** (severity: **error**)

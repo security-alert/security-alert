@@ -1,7 +1,6 @@
-import type { Log } from "sarif";
+import type { Log, Result } from "sarif";
 // @ts-ignore
 import escape from 'markdown-escape'
-import { Result } from "sarif";
 import urlJoin from "url-join";
 
 function escapeMarkdown(strings: TemplateStringsArray, ...values: any[]) {
@@ -38,11 +37,14 @@ const createCodeURL = (result: Result, options: sarifFormatterOptions): string[]
 }
 
 
-export type sarifFormatterResult = {
-    title: string;
-    body: string;
-}
 export type sarifFormatterOptions = {
+    /**
+     * Title of content
+     */
+    title?: string;
+    /**
+     * https://github.com
+     */
     githubHost?: string;
     /**
      * GitHub Owner
@@ -63,9 +65,19 @@ export type sarifFormatterOptions = {
     sourceRoot: string;
 
 }
-export const sarifToMarkdown = (options: sarifFormatterOptions): (sarifLog: Log) => { title: string; body: string }[] => {
+type sarifToMarkdownResult = {
+    title?: string;
+    body: string;
+    /**
+     * If the body has not results, `hasMessages` will be `false`
+     */
+    hasMessages: boolean
+};
+export const sarifToMarkdown = (options: sarifFormatterOptions): (sarifLog: Log) => sarifToMarkdownResult[] => {
     return (sarifLog: Log) => {
         return sarifLog.runs.map(run => {
+            const title = options.title ? `# ${options.title}\n` : "";
+
             // # tool section
             // Rule info
             // Vulnerability info
@@ -75,11 +87,12 @@ export const sarifToMarkdown = (options: sarifFormatterOptions): (sarifLog: Log)
              * # Rule Info
              */
             const ruleInfo = escapeMarkdown`\
-# ${run.tool.driver.name}
+## Rules
 <!-- Rule Info -->
 ${run.tool.driver?.rules?.map(rule => {
+                    const severity = rule.properties ? rule.properties?.["problem.severity"] : ""
                     // rule description
-                    return `**${rule.id}**
+                    return `**${rule.id}** (severity: **${severity}**)
 
 > ${rule.shortDescription?.text}`
                 }
@@ -91,20 +104,28 @@ ${run.tool.driver?.rules?.map(rule => {
             - rule id
             - message
             - vulnerability source location
+
+            If pass the scan, results is empty array
             */
-            const results = `
+            const results = run.results && run.results.length > 0 ? `
 ## Results
 
 ${run.results?.map(result => {
-                return `- **${result.ruleId}**: ${escape(result.message.text)}`
-                    + "\n\n"
-                    + createCodeURL(result, options).join("\n")
-                    + "\n"
-            }).join("\n")}
+                    return `- **${result.ruleId}**: ${escape(result.message.text)}`
+                        + "\n\n"
+                        + createCodeURL(result, options).join("\n")
+                        + "\n"
+                }).join("\n")}
+`
+                : `
+## Results
+
+No Error
+
 `
             return {
-                title: run.tool.driver.name,
-                body: ruleInfo + "\n" + ruleDetails + "\n" + results
+                body: title + ruleInfo + "\n" + ruleDetails + "\n" + results,
+                hasMessages: run.results?.length !== 0
             };
         });
     }

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/azu/security-alert/compare/v1.4.0...v1.4.1) (2020-08-05)
+
+
+### Bug Fixes
+
+* **sarif-to-issue:** add bin sarif-to-issue ([a251c8e](https://github.com/azu/security-alert/commit/a251c8e4ec320657762510ffce491d7226a60a93))
+
+
+
+
+
 # [1.4.0](https://github.com/azu/security-alert/compare/v1.3.5...v1.4.0) (2020-08-05)
 
 

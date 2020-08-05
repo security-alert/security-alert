@@ -4,6 +4,10 @@ import { issueComment } from "./issue-comment";
 // SARIF pattern
 export type CreatedOptions = {
     /**
+     * The title of post content
+     */
+    title?: string;
+    /**
      * issue url of pull request url
      */
     postingURL: string;
@@ -34,23 +38,32 @@ export async function postComment(options: CreatedOptions) {
     const postringRepo: string = matchObj.groups.repo;
     const postringNumber: number = Number(matchObj.groups.issueNumber);
     const results = sarifToMarkdown({
+        title: options.title,
         owner,
         repo,
         branch,
         sourceRoot: options.sarifContentSourceRoot ?? ""
     })(JSON.parse(options.sarifContent))
-    const body = results.map(result => {
+    const resultsHasMessage = results.filter(result => result.hasMessages);
+    const body = resultsHasMessage.map(result => {
         return result.body;
     }).join("\n\n");
     if (dryRun) {
-        console.log(`Post comment
+        if (resultsHasMessage.length === 0) {
+            console.log("It will not post, because the content has not results.")
+        }
+        console.log(`DryRun results:
 owner: ${owner}
 repo: ${repo}
 issue: ${options.postingURL}
+title: ${options.title}
 body: ${body}
 `);
         return;
     } else {
+        if (resultsHasMessage.length === 0) {
+            return;
+        }
         return issueComment({
             owner: postingOwner,
             repo: postringRepo,

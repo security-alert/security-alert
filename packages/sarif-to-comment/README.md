@@ -41,6 +41,10 @@ Install with [npm](https://www.npmjs.com/):
       # use HEAD sha for link
       $ GITHUB_TOKEN=xxx npx @security-alert/sarif-to-comment --commentUrl "https://github.com/owner/another/issues/1" --sarifContentOwner "owner" --sarifContentRepo "repo" ---sarifContentBranch `git rev-parse HEAD` "./codeql_result.sarif"
 
+## Examples
+
+- <https://github.com/azu/codeql-scan-example/issues/1>
+
 ## Changelog
 
 See [Releases page](https://github.com/azu/security-alert/releases).

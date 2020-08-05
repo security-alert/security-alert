@@ -9,7 +9,7 @@ A Command Line ToolKit for GitHub Security Alert.
 - [@security-alert/list-alerts](packages/list-alerts)
     - Show list of GitHub Security Alerts.
 
-### SARIF to GitHub Issue/Comment.
+### SARIF to GitHub Issue/Comment
 
 These tools aim to integration [CodeQL](https://securitylab.github.com/tools/codeql) and GitHub.
 [CodeQL](https://securitylab.github.com/tools/codeql) output the scanned results as [SARIF format](https://help.semmle.com/codeql/codeql-cli/reference/sarif-overview.html).

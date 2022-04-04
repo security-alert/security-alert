@@ -19,7 +19,8 @@ jobs:
           node-version: '14'
       - name: yarn install and build
         run: |
-          yarn install & 
+          npm install --global cross-env & \
+          yarn install & \
           yarn run build
       - name: try the build
         run: |
@@ -28,4 +29,4 @@ jobs:
           --commentUrl https://github.com/Gby56/security-alert/issues/1 \
           --sarifContentOwner Gby56 \
           --sarifContentRepo security-alert \
-          --sarifContentBranch test-pr --token ${{secrets.GITHUB_TOKEN}}
+          --sarifContentBranch test-pr --action --token ${{secrets.GITHUB_TOKEN}}

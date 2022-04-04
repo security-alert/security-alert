@@ -6,7 +6,10 @@ on:
     branches:
     - github_action_authentication
   workflow_dispatch:
-  
+
+env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
 jobs:
   testauth:
     name: Build
@@ -29,4 +32,4 @@ jobs:
           --commentUrl https://github.com/Gby56/security-alert/issues/1 \
           --sarifContentOwner Gby56 \
           --sarifContentRepo security-alert \
-          --sarifContentBranch test-pr --action --token ${{secrets.GITHUB_TOKEN}}
+          --sarifContentBranch test-pr --action --token $GITHUB_TOKEN

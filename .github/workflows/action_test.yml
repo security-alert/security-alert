@@ -1,0 +1,31 @@
+name: Test GH action
+
+on:
+  # Scan changed files in PRs, block on new issues only (existing issues ignored)
+  push:
+    branches:
+    - github_action_authentication
+  workflow_dispatch:
+  
+jobs:
+  testauth:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      # Fetch project source
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      - name: yarn install and build
+        run: |
+          yarn install & 
+          yarn run build
+      - name: try the build
+        run: |
+          cat packages/sarif-to-markdown/test/snapshots/xss/input.json & \
+          ./sarif-to-comment/bin/cmd.js packages/sarif-to-markdown/test/snapshots/xss/input.json \
+          --commentUrl https://github.com/Gby56/security-alert/issues/1 \
+          --sarifContentOwner Gby56 \
+          --sarifContentRepo security-alert \
+          --sarifContentBranch test-pr --token ${{secrets.GITHUB_TOKEN}}

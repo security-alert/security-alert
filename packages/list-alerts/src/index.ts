@@ -1,4 +1,4 @@
-import {fetchPackageDetails, fetchVulnerabilityAlerts} from "@security-alert/share";
+import { fetchPackageDetails, fetchVulnerabilityAlerts } from "@security-alert/share";
 
 export type listSecurityAlertsOptions = {
     token: string;
@@ -14,7 +14,7 @@ export type listSecurityAlertsResult = {
     dependenciesType: string;
     vulnerableVersionRange: string;
     gitHubAlertUrl: string;
-}
+};
 
 /**
  * listing security alerts with details
@@ -26,7 +26,7 @@ export async function listSecurityAlerts(options: listSecurityAlertsOptions) {
         repo: options.repo,
         token: options.token
     });
-    const promises = vulnerabilityAlerts.map(async alert => {
+    const promises = vulnerabilityAlerts.map(async (alert) => {
         const detail = await fetchPackageDetails({
             owner: options.owner,
             repo: options.repo,
@@ -47,4 +47,3 @@ export async function listSecurityAlerts(options: listSecurityAlertsOptions) {
     });
     return Promise.all(promises);
 }
-

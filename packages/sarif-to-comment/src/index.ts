@@ -28,12 +28,15 @@ export async function postComment(options: CreatedOptions) {
     const repo = options.sarifContentRepo;
     const branch = options.sarifContentBranch;
     // https://github.com/owner/repo/issues/85
-    const issuePattern = /^https:\/\/github.com\/(?<owner>[0-9a-zA-Z-_.]+)\/(?<repo>[0-9a-zA-Z-_.]+)\/issues\/(?<issueNumber>[0-9]+)/;
+    const issuePattern =
+        /^https:\/\/github.com\/(?<owner>[0-9a-zA-Z-_.]+)\/(?<repo>[0-9a-zA-Z-_.]+)\/issues\/(?<issueNumber>[0-9]+)/;
     const matchObj = issuePattern.exec(options.postingURL);
     if (!matchObj || !matchObj.groups) {
-        throw new Error("Should set security alert url.\n" +
-            "\n" +
-            "Example: https://github.com/owner/reponame/network/alert/package-lock.json/axios/open");
+        throw new Error(
+            "Should set security alert url.\n" +
+                "\n" +
+                "Example: https://github.com/owner/reponame/network/alert/package-lock.json/axios/open"
+        );
     }
     const postingOwner: string = matchObj.groups.owner;
     const postringRepo: string = matchObj.groups.repo;
@@ -44,14 +47,16 @@ export async function postComment(options: CreatedOptions) {
         repo,
         branch,
         sourceRoot: options.sarifContentSourceRoot ?? ""
-    })(JSON.parse(options.sarifContent))
-    const resultsHasMessage = results.filter(result => result.hasMessages);
-    const body = resultsHasMessage.map(result => {
-        return result.body;
-    }).join("\n\n");
+    })(JSON.parse(options.sarifContent));
+    const resultsHasMessage = results.filter((result) => result.hasMessages);
+    const body = resultsHasMessage
+        .map((result) => {
+            return result.body;
+        })
+        .join("\n\n");
     if (dryRun) {
         if (resultsHasMessage.length === 0) {
-            console.log("It will not post, because the content has not results.")
+            console.log("It will not post, because the content has not results.");
         }
         console.log(`DryRun results:
 owner: ${owner}
@@ -72,6 +77,6 @@ body: ${body}
             body: body,
             token: options.token,
             ghActionAuthentication: options.ghActionAuthenticationMode
-        })
+        });
     }
 }

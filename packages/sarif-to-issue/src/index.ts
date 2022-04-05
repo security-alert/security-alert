@@ -7,9 +7,9 @@ export type CreatedOptions = {
         title: string;
         owner: string;
         repo: string;
-        assignees?: string[]
-        labels?: string[]
-    }
+        assignees?: string[];
+        labels?: string[];
+    };
     token: string;
     dryRun?: boolean;
     // SARIF v2.1.0
@@ -33,10 +33,12 @@ export async function createIssueFromSarif(options: CreatedOptions) {
         branch: options.sarifContentBranch,
         sourceRoot: options.sarifContentSourceRoot ?? ""
     })(JSON.parse(options.sarifContent));
-    const resultsHasMessage = results.filter(result => result.hasMessages);
-    const body = resultsHasMessage.map(result => {
-        return result.body;
-    }).join("\n\n");
+    const resultsHasMessage = results.filter((result) => result.hasMessages);
+    const body = resultsHasMessage
+        .map((result) => {
+            return result.body;
+        })
+        .join("\n\n");
 
     if (dryRun) {
         console.log(`Create Issue

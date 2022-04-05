@@ -3,7 +3,8 @@ import { postComment } from "./index";
 import * as fs from "fs";
 
 export function run() {
-    const cli = meow(`
+    const cli = meow(
+        `
     Usage
       $ npx @security-alert/sarif-to-comment <sarif-file-path>
  
@@ -30,48 +31,50 @@ export function run() {
       # use HEAD sha for link
       $ GITHUB_TOKEN=xxx npx @security-alert/sarif-to-comment --commentUrl "https://github.com/owner/another/issues/1" --sarifContentOwner "owner" --sarifContentRepo "repo" ---sarifContentBranch \`git rev-parse HEAD\` "./codeql_result.sarif"
 
-`, {
-        flags: {
-            action:{
-                type: "boolean",
-                default: false
+`,
+        {
+            flags: {
+                action: {
+                    type: "boolean",
+                    default: false
+                },
+                dryRun: {
+                    type: "boolean"
+                },
+                token: {
+                    type: "string"
+                },
+                commentUrl: {
+                    type: "string",
+                    isRequired: true
+                },
+                sarifContentOwner: {
+                    type: "string",
+                    isRequired: true
+                },
+                sarifContentRepo: {
+                    type: "string",
+                    isRequired: true
+                },
+                sarifContentBranch: {
+                    type: "string",
+                    isRequired: true
+                },
+                sarifContentSourceRoot: {
+                    type: "string"
+                }
             },
-            dryRun: {
-                type: "boolean"
-            },
-            token: {
-                type: "string"
-            },
-            commentUrl: {
-                type: "string",
-                isRequired: true
-            },
-            sarifContentOwner: {
-                type: "string",
-                isRequired: true
-            },
-            sarifContentRepo: {
-                type: "string",
-                isRequired: true
-            },
-            sarifContentBranch: {
-                type: "string",
-                isRequired: true
-            },
-            sarifContentSourceRoot: {
-                type: "string",
-            },
-        },
-        autoHelp: true,
-        autoVersion: true
-    });
+            autoHelp: true,
+            autoVersion: true
+        }
+    );
 
     const token = process.env.GITHUB_TOKEN || cli.flags.token;
     if (!token) {
         cli.showHelp(1);
         return;
     }
-    const promises = cli.input.map(sarifFilePath => {
+    const promises = cli.input.map((sarifFilePath) => {
         const content = fs.readFileSync(sarifFilePath, "utf-8");
         return postComment({
             token: token,
@@ -83,14 +86,14 @@ export function run() {
             sarifContentRepo: cli.flags.sarifContentRepo,
             sarifContentSourceRoot: cli.flags.sarifContentSourceRoot,
             ghActionAuthenticationMode: cli.flags.action
-        }).then(result => {
+        }).then((result) => {
             if (!result) {
                 return "";
             }
             return result.html_url;
         });
     });
-    return Promise.all(promises).then(issuesURL => {
+    return Promise.all(promises).then((issuesURL) => {
         return issuesURL.join("\n");
     });
 }

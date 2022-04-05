@@ -1,13 +1,20 @@
-import {PackageDetails} from "./Details";
+import { PackageDetails } from "./Details";
 
 export function isYarnLock(packageFilePath: string) {
     return /yarn.lock$/.test(packageFilePath);
 }
 
-export function lookupYarnLockDetails({packageName, packageFilePath, pkg}: {
-    packageName: string,
-    packageFilePath: string,
-    pkg: { type: string, object: { [index: string]: { version: string, resolve: string, integrity: string, dependencies: object } } }
+export function lookupYarnLockDetails({
+    packageName,
+    packageFilePath,
+    pkg
+}: {
+    packageName: string;
+    packageFilePath: string;
+    pkg: {
+        type: string;
+        object: { [index: string]: { version: string; resolve: string; integrity: string; dependencies: object } };
+    };
 }): PackageDetails {
     if (pkg.type !== "success") {
         return {
@@ -17,7 +24,7 @@ export function lookupYarnLockDetails({packageName, packageFilePath, pkg}: {
             dependenciesType: "unknown"
         };
     }
-    const matchKey = Object.keys(pkg.object).find(key => {
+    const matchKey = Object.keys(pkg.object).find((key) => {
         const keyName = key.slice(0, key.lastIndexOf("@"));
         return keyName === packageName;
     });

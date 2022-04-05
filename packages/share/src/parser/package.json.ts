@@ -5,15 +5,19 @@ export function isPackage(packageFilePath: string) {
     return /pacakge.json$/.test(packageFilePath);
 }
 
-export function lookupPackageDetails({ packageName, packageFilePath, pkg }: {
-    packageName: string,
-    packageFilePath: string,
-    pkg: PackageJson
+export function lookupPackageDetails({
+    packageName,
+    packageFilePath,
+    pkg
+}: {
+    packageName: string;
+    packageFilePath: string;
+    pkg: PackageJson;
 }): PackageDetails {
     // TODO: https://github.com/npm/types/pull/2
     const dependencies = (pkg as any)["dependencies"] || {};
     const devDependencies = pkg["devDependencies"] || {};
-    const target = ((): { dependenciesType: DependenciesType, version: string } => {
+    const target = ((): { dependenciesType: DependenciesType; version: string } => {
         if (dependencies.hasOwnProperty(packageName)) {
             return {
                 dependenciesType: "dependencies",

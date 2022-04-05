@@ -1,6 +1,6 @@
 import type { Log, Result } from "sarif";
 // @ts-ignore
-import escape from 'markdown-escape'
+import escape from "markdown-escape";
 import urlJoin from "url-join";
 
 function escapeMarkdown(strings: TemplateStringsArray, ...values: any[]) {
@@ -19,23 +19,31 @@ const createCodeURL = (result: Result, options: sarifFormatterOptions): string[]
     if (!Array.isArray(result.locations)) {
         return [];
     }
-    return result.locations?.flatMap(location => {
+    return result.locations?.flatMap((location) => {
         if (!location.physicalLocation) {
             return [];
         }
-        const physicalLocation = location.physicalLocation
+        const physicalLocation = location.physicalLocation;
         if (!physicalLocation.artifactLocation) {
             return [];
         }
         if (!physicalLocation.region) {
             return [];
         }
-        const lineNumber = physicalLocation.region.endLine !== undefined ? `L${physicalLocation.region.startLine}-${physicalLocation.region.endLine}` : `L${physicalLocation.region.startLine}`;
-        return urlJoin(githubHost, options.owner, options.repo, `blob/${options.branch}`, options.sourceRoot, `${physicalLocation.artifactLocation.uri}#${lineNumber}`);
+        const lineNumber =
+            physicalLocation.region.endLine !== undefined
+                ? `L${physicalLocation.region.startLine}-${physicalLocation.region.endLine}`
+                : `L${physicalLocation.region.startLine}`;
+        return urlJoin(
+            githubHost,
+            options.owner,
+            options.repo,
+            `blob/${options.branch}`,
+            options.sourceRoot,
+            `${physicalLocation.artifactLocation.uri}#${lineNumber}`
+        );
     });
-
-}
-
+};
 
 export type sarifFormatterOptions = {
     /**
@@ -63,27 +71,26 @@ export type sarifFormatterOptions = {
      * Base path
      */
     sourceRoot: string;
-
-}
+};
 type sarifToMarkdownResult = {
     title?: string;
     body: string;
     /**
      * If the body has not results, `hasMessages` will be `false`
      */
-    hasMessages: boolean
+    hasMessages: boolean;
 };
-export const sarifToMarkdown = (options: sarifFormatterOptions): (sarifLog: Log) => sarifToMarkdownResult[] => {
+export const sarifToMarkdown = (options: sarifFormatterOptions): ((sarifLog: Log) => sarifToMarkdownResult[]) => {
     return (sarifLog: Log) => {
-        return sarifLog.runs.map(run => {
+        return sarifLog.runs.map((run) => {
             const title = options.title ? `# ${options.title}\n` : "# Report";
-            
+
             const toolInfo = `
 ## Tool information
 - Name: ${run.tool.driver?.name}
 - Organization: ${run.tool.driver?.organization}
 - Version: ${run.tool.driver?.semanticVersion}
-`
+`;
             // # tool section
             // Rule info
             // Vulnerability info
@@ -97,14 +104,13 @@ export const sarifToMarkdown = (options: sarifFormatterOptions): (sarifLog: Log)
 <!-- Rule Info -->
 <details><summary>Rules details</summary>
 
-${run.tool.driver?.rules?.map(rule => {
-                    const severity = rule.properties ? rule.properties?.["problem.severity"] : ""
-                    // rule description
-                    return `- ${rule.id} [${severity}]
+${run.tool.driver?.rules?.map((rule) => {
+    const severity = rule.properties ? rule.properties?.["problem.severity"] : "";
+    // rule description
+    return `- ${rule.id} [${severity}]
 
-> ${rule.shortDescription?.text}`
-                }
-            )}
+> ${rule.shortDescription?.text}`;
+})}
  `;
             const ruleDetails = `<details><summary>Details</summary>
 <pre>${JSON.stringify(run.tool, null, 4)}</pre></details>
@@ -117,27 +123,32 @@ ${run.tool.driver?.rules?.map(rule => {
 
             If pass the scan, results is empty array
             */
-            const results = run.results && run.results.length > 0 ? `
+            const results =
+                run.results && run.results.length > 0
+                    ? `
 ## Results
 
-${run.results?.map(result => {
-                    return `- **${result.ruleId}**: ${escape(result.message.text)}`
-                        + "\n\n"
-                        + createCodeURL(result, options).join("\n")
-                        + "\n"
-                }).join("\n")}
+${run.results
+    ?.map((result) => {
+        return (
+            `- **${result.ruleId}**: ${escape(result.message.text)}` +
+            "\n\n" +
+            createCodeURL(result, options).join("\n") +
+            "\n"
+        );
+    })
+    .join("\n")}
 `
-                : `
+                    : `
 ## Results
 
 No Error
 
-`
+`;
             return {
-                body: title + results + "\n" + ruleInfo+ "\n" + ruleDetails + toolInfo,
+                body: title + results + "\n" + ruleInfo + "\n" + ruleDetails + toolInfo,
                 hasMessages: run.results?.length !== 0
             };
         });
-    }
-
-}
+    };
+};

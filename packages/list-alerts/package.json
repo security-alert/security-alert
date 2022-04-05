@@ -37,28 +37,14 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production tsc -p .",
     "clean": "rimraf lib/",
-    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\"",
     "prepublish": "npm run --if-present build",
     "test": "# jest",
     "test:watch": "jest --watch --notify --notifyMode=change --coverage",
     "watch": "tsc -p . --watch"
   },
-  "husky": {
-    "hooks": {
-      "precommit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,css}": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "prettier": {
-    "printWidth": 120,
-    "singleQuote": false,
-    "tabWidth": 4
-  },
+
+
+
   "devDependencies": {
     "@types/lodash": "^4.14.158",
     "@types/meow": "^5.0.0",

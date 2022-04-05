@@ -33,18 +33,12 @@
   "scripts": {
     "build": "tsc -p . && tsc --project ./tsconfig.module.json",
     "clean": "rimraf lib/ module/",
-    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\"",
     "prepublish": "npm run --if-present build",
     "test": "mocha \"test/**/*.ts\"",
     "updateSnapshot": "UPDATE_SNAPSHOT=1 npm test",
     "watch": "tsc -p . --watch"
   },
-  "prettier": {
-    "printWidth": 120,
-    "singleQuote": false,
-    "tabWidth": 4,
-    "trailingComma": "none"
-  },
+
   "dependencies": {
     "@types/sarif": "^2.1.2",
     "markdown-escape": "^1.1.0",
@@ -55,7 +49,6 @@
     "@types/node": "^14.0.27",
     "@types/url-join": "^4.0.0",
     "mocha": "^9.2.2",
-    "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
     "ts-node": "^10.7.0",
     "ts-node-test-register": "^10.0.0",

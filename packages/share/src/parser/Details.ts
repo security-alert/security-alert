@@ -4,4 +4,4 @@ export type PackageDetails = {
     version: string;
     packageFilePath: string;
     dependenciesType: DependenciesType;
-}
+};

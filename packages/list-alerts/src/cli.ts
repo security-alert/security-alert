@@ -2,7 +2,8 @@ import meow from "meow";
 import { listSecurityAlerts } from "./index";
 
 export async function run() {
-    const cli = meow(`
+    const cli = meow(
+        `
     Usage
       $ npx @security-alert/list-alerts [option]
  
@@ -16,21 +17,23 @@ export async function run() {
       $ GITHUB_TOKEN=xxx npx @security-alert/list-alerts --repo github/desktop
       $ GITHUB_TOKEN=xxx npx @security-alert/list-alerts --repo github/desktop --format json
 
-`, {
-        flags: {
-            token: {
-                type: "string"
+`,
+        {
+            flags: {
+                token: {
+                    type: "string"
+                },
+                repo: {
+                    type: "string"
+                },
+                format: {
+                    type: "string"
+                }
             },
-            repo: {
-                type: "string"
-            },
-            format: {
-                type: "string"
-            }
-        },
-        autoHelp: true,
-        autoVersion: true
-    });
+            autoHelp: true,
+            autoVersion: true
+        }
+    );
 
     const token = process.env.GITHUB_TOKEN || cli.flags.token;
     if (!token) {
@@ -51,11 +54,12 @@ export async function run() {
         repo,
         token
     });
-    if(format === "json"){
+    if (format === "json") {
         return JSON.stringify(vulnerabilityAlerts);
-    }else{
-        return vulnerabilityAlerts.map(alert => {
-            return `# ${alert.title} 
+    } else {
+        return vulnerabilityAlerts
+            .map((alert) => {
+                return `# ${alert.title} 
 
 - PackageName: ${alert.packageName} 
 - PackageUrl: ${alert.packageUrl} 
@@ -64,7 +68,8 @@ export async function run() {
 - PackageManifestUrl: ${alert.packageManifestUrl} 
 - VulnerableVersionRange: ${alert.vulnerableVersionRange} 
 - GitHubAlertUrl: ${alert.gitHubAlertUrl} 
-`
-        }).join("\n");
+`;
+            })
+            .join("\n");
     }
 }

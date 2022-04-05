@@ -25,12 +25,13 @@ Install with [npm](https://www.npmjs.com/):
     Options
       --dryRun                      Dry-Run when it is enabled
       --token                       GitHub Token, or support environment variables - GITHUB_TOKEN=xxx
+      --action                      Authentication mode for the token, defaults to PAT, if set, switches to Github Action
       --commentUrl                  Post to comment URL. e.g. https://github.com/owner/repo/issues/85
       --sarifContentOwner           GitHub Owner name of sarif content result.  e.g. "owner"
       --sarifContentRepo            GitHub Repository name of sarif content result. e.g. "repo"
       --sarifContentBranch          GitHub Repository branch name of sarif content result. e.g. "master"
       --sarifContentSourceRoot      Base path to sarif scanned source. You can set CodeQL's sourceLocationPrefix as relative value if necessary
-  
+    
     Examples
       # DryRun and preview it!
       $ GITHUB_TOKEN=xxx npx @security-alert/sarif-to-comment --commentUrl "https://github.com/owner/repo/issues/1" --sarifContentOwner "owner" --sarifContentRepo "repo" --sarifContentBranch "master" "./codeql_result.sarif"

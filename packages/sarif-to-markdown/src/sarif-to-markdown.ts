@@ -76,8 +76,14 @@ type sarifToMarkdownResult = {
 export const sarifToMarkdown = (options: sarifFormatterOptions): (sarifLog: Log) => sarifToMarkdownResult[] => {
     return (sarifLog: Log) => {
         return sarifLog.runs.map(run => {
-            const title = options.title ? `# ${options.title}\n` : "";
-
+            const title = options.title ? `# ${options.title}\n` : "# Report";
+            
+            const toolInfo = `
+## Tool information
+- Name: ${run.tool.driver?.name}
+- Organization: ${run.tool.driver?.organization}
+- Version: ${run.tool.driver?.semanticVersion}
+`
             // # tool section
             // Rule info
             // Vulnerability info
@@ -86,20 +92,24 @@ export const sarifToMarkdown = (options: sarifFormatterOptions): (sarifLog: Log)
             /**
              * # Rule Info
              */
-            const ruleInfo = escapeMarkdown`\
-## Rules
+            const ruleInfo = escapeMarkdown`
+## Rules information
 <!-- Rule Info -->
+<details><summary>Rules details</summary>
+
 ${run.tool.driver?.rules?.map(rule => {
                     const severity = rule.properties ? rule.properties?.["problem.severity"] : ""
                     // rule description
-                    return `**${rule.id}** (severity: **${severity}**)
+                    return `- ${rule.id} [${severity}]
 
 > ${rule.shortDescription?.text}`
                 }
             )}
  `;
             const ruleDetails = `<details><summary>Details</summary>
-<pre>${JSON.stringify(run.tool, null, 4)}</pre></details>`;
+<pre>${JSON.stringify(run.tool, null, 4)}</pre></details>
+`;
+
             /* Results
             - rule id
             - message
@@ -124,7 +134,7 @@ No Error
 
 `
             return {
-                body: title + ruleInfo + "\n" + ruleDetails + "\n" + results,
+                body: title + results + "\n" + ruleInfo+ "\n" + ruleDetails + toolInfo,
                 hasMessages: run.results?.length !== 0
             };
         });

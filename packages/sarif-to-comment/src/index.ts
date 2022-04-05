@@ -19,6 +19,7 @@ export type CreatedOptions = {
     sarifContentSourceRoot?: string;
     token: string;
     dryRun?: boolean;
+    ghActionAuthenticationMode?: boolean;
 };
 
 export async function postComment(options: CreatedOptions) {
@@ -69,7 +70,8 @@ body: ${body}
             repo: postringRepo,
             issue_number: postringNumber,
             body: body,
-            token: options.token
+            token: options.token,
+            ghActionAuthentication: options.ghActionAuthenticationMode
         })
     }
 }

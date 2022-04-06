@@ -20,6 +20,7 @@ export type CreatedOptions = {
     token: string;
     dryRun?: boolean;
     ghActionAuthenticationMode?: boolean;
+    ruleDetails?: boolean;
 };
 
 export async function postComment(options: CreatedOptions) {
@@ -46,7 +47,8 @@ export async function postComment(options: CreatedOptions) {
         owner,
         repo,
         branch,
-        sourceRoot: options.sarifContentSourceRoot ?? ""
+        sourceRoot: options.sarifContentSourceRoot ?? "",
+        details: options.ruleDetails
     })(JSON.parse(options.sarifContent));
     const resultsHasMessage = results.filter((result) => result.hasMessages);
     const body = resultsHasMessage

@@ -27,8 +27,8 @@ jobs:
           yarn run build
       - name: try the build
         run: |
-          cat packages/sarif-to-markdown/test/snapshots/xss/input.json & \
-          ./packages/sarif-to-comment/bin/cmd.js packages/sarif-to-markdown/test/snapshots/xss/input.json \
+          cat packages/sarif-to-markdown/test/snapshots/suppressed-finding/input.json & \
+          ./packages/sarif-to-comment/bin/cmd.js packages/sarif-to-markdown/test/snapshots/suppressed-finding/input.json \
           --commentUrl https://github.com/Gby56/security-alert/issues/1 \
           --sarifContentOwner Gby56 \
           --sarifContentRepo security-alert \

@@ -15,6 +15,7 @@ export function run() {
       --dryRun                      Dry-Run when it is enabled
       --token                       GitHub Token, or support environment variables - GITHUB_TOKEN=xxx
       --action                      Authentication mode for the token, defaults to PAT, if set, switches to Github Action
+      --ruleDetails                 Include rule details in the markdown, might be too big for Github's API, defaults to false
       --commentUrl                  Post to comment URL. e.g. https://github.com/owner/repo/issues/85
       --sarifContentOwner           GitHub Owner name of sarif content result.  e.g. "owner"
       --sarifContentRepo            GitHub Repository name of sarif content result. e.g. "repo"
@@ -35,6 +36,10 @@ export function run() {
         {
             flags: {
                 action: {
+                    type: "boolean",
+                    default: false
+                },
+                ruleDetails: {
                     type: "boolean",
                     default: false
                 },
@@ -85,7 +90,8 @@ export function run() {
             sarifContentBranch: cli.flags.sarifContentBranch,
             sarifContentRepo: cli.flags.sarifContentRepo,
             sarifContentSourceRoot: cli.flags.sarifContentSourceRoot,
-            ghActionAuthenticationMode: cli.flags.action
+            ghActionAuthenticationMode: cli.flags.action,
+            ruleDetails: cli.flags.ruleDetails
         }).then((result) => {
             if (!result) {
                 return "";

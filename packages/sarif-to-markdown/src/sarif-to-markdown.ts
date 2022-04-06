@@ -71,6 +71,10 @@ export type sarifFormatterOptions = {
      * Base path
      */
     sourceRoot: string;
+    /**
+     * Details of the rules in the comment or not, this might make the comment too big for Github
+     */
+    details?: boolean;
 };
 type sarifToMarkdownResult = {
     title?: string;
@@ -130,12 +134,12 @@ ${run.tool.driver?.rules?.map((rule) => {
 
 ${run.results
     ?.map((result) => {
-        return (
-            `- **${result.ruleId}**: ${escape(result.message.text)}` +
-            "\n\n" +
-            createCodeURL(result, options).join("\n") +
-            "\n"
-        );
+        return result.suppressions
+            ? ""
+            : `- **${result.ruleId}**: ${escape(result.message.text)}` +
+                  "\n\n" +
+                  createCodeURL(result, options).join("\n") +
+                  "\n";
     })
     .join("\n")}
 `
@@ -145,8 +149,39 @@ ${run.results
 No Error
 
 `;
+
+            const suppressedResults =
+                run.results && run.results.length > 0
+                    ? `
+## Suppressed results
+
+${run.results
+    ?.map((result) => {
+        return result.suppressions
+            ? `- **${result.ruleId}**: ${escape(result.message.text)}` +
+                  "\n\n" +
+                  createCodeURL(result, options).join("\n") +
+                  "\n"
+            : "";
+    })
+    .join("\n")}
+`
+                    : `
+## Results
+
+No Error
+
+`;
+            console.log("ARE DETAILS INCLUDED ?");
+            console.log(options.details);
+            if (options.details) {
+                return {
+                    body: title + results + "\n" + suppressedResults + "\n" + ruleInfo + "\n" + ruleDetails + toolInfo,
+                    hasMessages: run.results?.length !== 0
+                };
+            }
             return {
-                body: title + results + "\n" + ruleInfo + "\n" + ruleDetails + toolInfo,
+                body: title + results + "\n" + suppressedResults + "\n" + ruleInfo + "\n" + toolInfo,
                 hasMessages: run.results?.length !== 0
             };
         });

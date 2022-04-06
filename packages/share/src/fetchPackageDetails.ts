@@ -41,7 +41,7 @@ export async function fetchPackageDetails(options: fetchPackageOptions): Promise
                   owner: options.owner,
                   path: options.packageFilePath
               })
-              .then((res) => {
+              .then((res: any): any => {
                   if (res.data.type !== "file") {
                       throw new Error("This is not file:" + options.packageFilePath);
                   }

@@ -42,7 +42,7 @@
     "markdown-escape": "^1.1.0",
     "url-join": "^4.0.1",
     "@types/sarif": "^2.1.4",
-    "@types/url-join": "^4.0.1",
+    "@types/url-join": "^4.0.1"
   },
   "devDependencies": {
     "@types/mocha": "^8.0.1",

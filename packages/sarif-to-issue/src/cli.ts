@@ -44,7 +44,8 @@ export function run() {
                     isRequired: true
                 },
                 owner: {
-                    type: "string"
+                    type: "string",
+                    isRequired: true
                 },
                 repo: {
                     type: "string",

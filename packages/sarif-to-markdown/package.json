@@ -51,7 +51,9 @@
     "rimraf": "^3.0.2",
     "ts-node": "^10.7.0",
     "ts-node-test-register": "^10.0.0",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "@types/sarif": "^2.1.4",
+    "@types/url-join": "^4.0.1"
   },
   "publishConfig": {
     "access": "public"

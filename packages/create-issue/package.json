@@ -41,10 +41,9 @@
     "test": "# jest",
     "watch": "tsc -p . --watch"
   },
-
-
-
   "devDependencies": {
+    "@octokit/graphql": "^4.8.0",
+    "@octokit/rest": "^18.12.0",
     "@types/lodash": "^4.14.158",
     "@types/meow": "^5.0.0",
     "@types/mocha": "^8.0.1",
@@ -61,8 +60,6 @@
   },
   "dependencies": {
     "@npm/types": "^1.0.1",
-    "@octokit/graphql": "^4.5.3",
-    "@octokit/rest": "^18.0.3",
     "@security-alert/share": "^1.3.0",
     "meow": "^7.0.1"
   },

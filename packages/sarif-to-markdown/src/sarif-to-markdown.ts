@@ -19,7 +19,7 @@ const createCodeURL = (result: Result, options: sarifFormatterOptions): string[]
     if (!Array.isArray(result.locations)) {
         return [];
     }
-    return result.locations?.flatMap((location) => {
+    return result.locations?.flatMap((location: any) => {
         if (!location.physicalLocation) {
             return [];
         }
@@ -86,7 +86,7 @@ type sarifToMarkdownResult = {
 };
 export const sarifToMarkdown = (options: sarifFormatterOptions): ((sarifLog: Log) => sarifToMarkdownResult[]) => {
     return (sarifLog: Log) => {
-        return sarifLog.runs.map((run) => {
+        return sarifLog.runs.map((run: any) => {
             const title = options.title ? `# ${options.title}\n` : "# Report";
 
             const toolInfo = `
@@ -108,7 +108,7 @@ export const sarifToMarkdown = (options: sarifFormatterOptions): ((sarifLog: Log
 <!-- Rule Info -->
 <details><summary>Rules details</summary>
 
-${run.tool.driver?.rules?.map((rule) => {
+${run.tool.driver?.rules?.map((rule: any) => {
     const severity = rule.properties ? rule.properties?.["problem.severity"] : "";
     // rule description
     return `- ${rule.id} [${severity}]
@@ -133,7 +133,7 @@ ${run.tool.driver?.rules?.map((rule) => {
 ## Results
 
 ${run.results
-    ?.map((result) => {
+    ?.map((result: any) => {
         return result.suppressions
             ? ""
             : `- **${result.ruleId}**: ${escape(result.message.text)}` +
@@ -156,7 +156,7 @@ No Error
 ## Suppressed results
 
 ${run.results
-    ?.map((result) => {
+    ?.map((result: any) => {
         return result.suppressions
             ? `- **${result.ruleId}**: ${escape(result.message.text)}` +
                   "\n\n" +

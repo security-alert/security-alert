@@ -172,8 +172,6 @@ ${run.results
 No Error
 
 `;
-            console.log("ARE DETAILS INCLUDED ?");
-            console.log(options.details);
             if (options.details) {
                 return {
                     body: title + results + "\n" + suppressedResults + "\n" + ruleInfo + "\n" + ruleDetails + toolInfo,

@@ -26,6 +26,7 @@ Install with [npm](https://www.npmjs.com/):
       --dryRun                      Dry-Run when it is enabled
       --token                       GitHub Token, or support environment variables - GITHUB_TOKEN=xxx
       --action                      Authentication mode for the token, defaults to PAT, if set, switches to Github Action
+      --ruleDetails                 Include rule details in the markdown, might be too big for Github's API, defaults to false
       --commentUrl                  Post to comment URL. e.g. https://github.com/owner/repo/issues/85
       --sarifContentOwner           GitHub Owner name of sarif content result.  e.g. "owner"
       --sarifContentRepo            GitHub Repository name of sarif content result. e.g. "repo"

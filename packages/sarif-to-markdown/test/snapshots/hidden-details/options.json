@@ -3,5 +3,6 @@
   "repo": "repo",
   "branch": "master",
   "sourceRoot": "base",
-  "title": "This Is Title"
+  "title": "This Is Title",
+  "suppressedResults": true
 }

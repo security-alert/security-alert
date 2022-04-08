@@ -75,6 +75,10 @@ export type sarifFormatterOptions = {
      * Details of the rules in the comment or not, this might make the comment too big for Github
      */
     details?: boolean;
+    /**
+     * Should the markdown include suppressed findings, defaults to true
+     */
+    suppressedResults?: boolean;
 };
 type sarifToMarkdownResult = {
     title?: string;
@@ -85,6 +89,8 @@ type sarifToMarkdownResult = {
     hasMessages: boolean;
 };
 export const sarifToMarkdown = (options: sarifFormatterOptions): ((sarifLog: Log) => sarifToMarkdownResult[]) => {
+    const suppressedResultsFlag = options.suppressedResults !== undefined ? options.suppressedResults : true;
+
     return (sarifLog: Log) => {
         return sarifLog.runs.map((run: any) => {
             const title = options.title ? `# ${options.title}\n` : "# Report";
@@ -150,8 +156,10 @@ No Error
 
 `;
 
-            const suppressedResults =
-                run.results && run.results.length > 0
+            // careful, double ternary... first check if we should include suppressedresults (return empty string)
+            // then check if there are results, if none, return default string
+            const suppressedResultsText = suppressedResultsFlag
+                ? run.results && run.results.length > 0
                     ? `
 ## Suppressed results
 
@@ -169,17 +177,28 @@ ${run.results
                     : `
 ## Results
 
-No Error
+No suppressed issues
 
-`;
+`
+                : "";
+
             if (options.details) {
                 return {
-                    body: title + results + "\n" + suppressedResults + "\n" + ruleInfo + "\n" + ruleDetails + toolInfo,
+                    body:
+                        title +
+                        results +
+                        "\n" +
+                        suppressedResultsText +
+                        "\n" +
+                        ruleInfo +
+                        "\n" +
+                        ruleDetails +
+                        toolInfo,
                     hasMessages: run.results?.length !== 0
                 };
             }
             return {
-                body: title + results + "\n" + suppressedResults + "\n" + ruleInfo + "\n" + toolInfo,
+                body: title + results + "\n" + suppressedResultsText + "\n" + ruleInfo + "\n" + toolInfo,
                 hasMessages: run.results?.length !== 0
             };
         });

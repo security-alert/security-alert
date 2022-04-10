@@ -1,6 +1,6 @@
 {
   "name": "@security-alert/sarif-to-issue",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Create an issue from SARIF file",
   "keywords": [
     "codeql",
@@ -43,10 +43,9 @@
     "preexample": "npm run build",
     "example": "node ./bin/cmd.js --title \"Example Issue\" --owner azu --repo codeql-scan-example --labels \"Type:security\" --sarifContentOwner azu --sarifContentRepo codeql-scan-example --sarifContentBranch master ./test/fixtures/xss.sarif"
   },
-
   "dependencies": {
     "@octokit/rest": "^18.0.3",
-    "@security-alert/sarif-to-markdown": "^1.5.0",
+    "@security-alert/sarif-to-markdown": "^1.6.0",
     "meow": "^7.0.1"
   },
   "devDependencies": {

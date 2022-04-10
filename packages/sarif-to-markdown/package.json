@@ -1,6 +1,6 @@
 {
   "name": "@security-alert/sarif-to-markdown",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Convert Sarif format to body text",
   "keywords": [
     "sarif",
@@ -38,7 +38,6 @@
     "updateSnapshot": "UPDATE_SNAPSHOT=1 npm test",
     "watch": "tsc -p . --watch"
   },
-
   "dependencies": {
     "@types/sarif": "^2.1.2",
     "markdown-escape": "^1.1.0",

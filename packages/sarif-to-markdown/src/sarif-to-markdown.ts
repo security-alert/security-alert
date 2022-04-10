@@ -19,7 +19,7 @@ const createCodeURL = (result: Result, options: sarifFormatterOptions): string[]
     if (!Array.isArray(result.locations)) {
         return [];
     }
-    return result.locations?.flatMap((location) => {
+    return result.locations?.flatMap((location: any) => {
         if (!location.physicalLocation) {
             return [];
         }
@@ -71,6 +71,14 @@ export type sarifFormatterOptions = {
      * Base path
      */
     sourceRoot: string;
+    /**
+     * Details of the rules in the comment or not, this might make the comment too big for Github
+     */
+    details?: boolean;
+    /**
+     * Should the markdown include suppressed findings, defaults to true
+     */
+    suppressedResults?: boolean;
 };
 type sarifToMarkdownResult = {
     title?: string;
@@ -81,8 +89,10 @@ type sarifToMarkdownResult = {
     hasMessages: boolean;
 };
 export const sarifToMarkdown = (options: sarifFormatterOptions): ((sarifLog: Log) => sarifToMarkdownResult[]) => {
+    const suppressedResultsFlag = options.suppressedResults !== undefined ? options.suppressedResults : true;
+
     return (sarifLog: Log) => {
-        return sarifLog.runs.map((run) => {
+        return sarifLog.runs.map((run: any) => {
             const title = options.title ? `# ${options.title}\n` : "# Report";
 
             const toolInfo = `
@@ -104,7 +114,7 @@ export const sarifToMarkdown = (options: sarifFormatterOptions): ((sarifLog: Log
 <!-- Rule Info -->
 <details><summary>Rules details</summary>
 
-${run.tool.driver?.rules?.map((rule) => {
+${run.tool.driver?.rules?.map((rule: any) => {
     const severity = rule.properties ? rule.properties?.["problem.severity"] : "";
     // rule description
     return `- ${rule.id} [${severity}]
@@ -129,13 +139,13 @@ ${run.tool.driver?.rules?.map((rule) => {
 ## Results
 
 ${run.results
-    ?.map((result) => {
-        return (
-            `- **${result.ruleId}**: ${escape(result.message.text)}` +
-            "\n\n" +
-            createCodeURL(result, options).join("\n") +
-            "\n"
-        );
+    ?.map((result: any) => {
+        return result.suppressions
+            ? ""
+            : `- **${result.ruleId}**: ${escape(result.message.text)}` +
+                  "\n\n" +
+                  createCodeURL(result, options).join("\n") +
+                  "\n";
     })
     .join("\n")}
 `
@@ -145,8 +155,50 @@ ${run.results
 No Error
 
 `;
+
+            // careful, double ternary... first check if we should include suppressedresults (return empty string)
+            // then check if there are results, if none, return default string
+            const suppressedResultsText = suppressedResultsFlag
+                ? run.results && run.results.length > 0
+                    ? `
+## Suppressed results
+
+${run.results
+    ?.map((result: any) => {
+        return result.suppressions
+            ? `- **${result.ruleId}**: ${escape(result.message.text)}` +
+                  "\n\n" +
+                  createCodeURL(result, options).join("\n") +
+                  "\n"
+            : "";
+    })
+    .join("\n")}
+`
+                    : `
+## Results
+
+No suppressed issues
+
+`
+                : "";
+
+            if (options.details) {
+                return {
+                    body:
+                        title +
+                        results +
+                        "\n" +
+                        suppressedResultsText +
+                        "\n" +
+                        ruleInfo +
+                        "\n" +
+                        ruleDetails +
+                        toolInfo,
+                    hasMessages: run.results?.length !== 0
+                };
+            }
             return {
-                body: title + results + "\n" + ruleInfo + "\n" + ruleDetails + toolInfo,
+                body: title + results + "\n" + suppressedResultsText + "\n" + ruleInfo + "\n" + toolInfo,
                 hasMessages: run.results?.length !== 0
             };
         });

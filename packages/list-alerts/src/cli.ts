@@ -40,7 +40,7 @@ export async function run() {
         cli.showHelp(1);
         return;
     }
-    const [owner, repo] = cli.flags.repo.split("/");
+    const [owner, repo] = cli.flags.repo ? cli.flags.repo.split("/") : [null, null];
     if (!owner) {
         throw new Error("owner is missing: --repo <owner>/<repo>");
     }

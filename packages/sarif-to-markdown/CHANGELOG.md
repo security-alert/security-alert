@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/azu/security-alert/compare/v1.6.0...v1.7.0) (2022-04-14)
+
+
+### Features
+
+* Implement groupBy function for ruleid grouping of results ([#16](https://github.com/azu/security-alert/issues/16)) ([32e4b28](https://github.com/azu/security-alert/commit/32e4b28513670cc56731fadf3d695afdafa7f88b))
+
+
+
+
+
 # [1.6.0](https://github.com/azu/security-alert/compare/v1.5.0...v1.6.0) (2022-04-10)
 
 

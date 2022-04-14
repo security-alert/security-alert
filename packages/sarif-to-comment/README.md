@@ -28,6 +28,8 @@ Install with [npm](https://www.npmjs.com/):
       --action                      Authentication mode for the token, defaults to PAT, if set, switches to Github Action
       --ruleDetails                 Include rule details in the markdown, might be too big for Github's API, defaults to false
       --commentUrl                  Post to comment URL. e.g. https://github.com/owner/repo/issues/85
+      --title                       Specify a comment title for the report, optional
+      --no-suppressedResults        Don't include suppressed results, that are in SARIF suppressions
       --sarifContentOwner           GitHub Owner name of sarif content result.  e.g. "owner"
       --sarifContentRepo            GitHub Repository name of sarif content result. e.g. "repo"
       --sarifContentBranch          GitHub Repository branch name of sarif content result. e.g. "master"

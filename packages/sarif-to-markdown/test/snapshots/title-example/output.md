@@ -1,19 +1,13 @@
 # Report
 ## Results
-
-
 - **js/xss**: Cross-site scripting vulnerability due to \[user-provided value\]\(1\).
-
-https://github.com/owner/repo/blob/master/base/examples/Xss2.js#L4
-
+    - https://github.com/owner/repo/blob/master/base/examples/Xss2.js#L4
 
 
 ## Suppressed results
 
 - **js/xss**: Cross-site scripting vulnerability due to \[user-provided value\]\(1\).
-
-https://github.com/owner/repo/blob/master/base/examples/Xss.js#L4
-
+    - https://github.com/owner/repo/blob/master/base/examples/Xss.js#L4
 
 
 
@@ -21,9 +15,11 @@ https://github.com/owner/repo/blob/master/base/examples/Xss.js#L4
 <!-- Rule Info -->
 <details><summary>Rules details</summary>
 
-- js/xss [error]
 
-> Client-side cross-site scripting
+    - js/xss [error] 
+
+    > Client-side cross-site scripting
+
  
 
 ## Tool information

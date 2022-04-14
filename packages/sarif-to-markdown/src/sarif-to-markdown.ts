@@ -80,6 +80,18 @@ export type sarifFormatterOptions = {
      */
     suppressedResults?: boolean;
 };
+
+function groupBy(arr: Result[], criteria: any) {
+    const newObj = arr.reduce(function (acc: any, currentValue: any) {
+        if (!acc[currentValue[criteria]]) {
+            acc[currentValue[criteria]] = [];
+        }
+        acc[currentValue[criteria]].push(currentValue);
+        return acc;
+    }, {});
+    return [newObj];
+}
+
 type sarifToMarkdownResult = {
     title?: string;
     body: string;
@@ -117,15 +129,29 @@ export const sarifToMarkdown = (options: sarifFormatterOptions): ((sarifLog: Log
 ${run.tool.driver?.rules?.map((rule: any) => {
     const severity = rule.properties ? rule.properties?.["problem.severity"] : "";
     // rule description
-    return `- ${rule.id} [${severity}]
-
-> ${rule.shortDescription?.text}`;
+    return `
+    - ${rule.id} [${severity}] \n
+    > ${rule.shortDescription?.text}\n`;
 })}
  `;
             const ruleDetails = `<details><summary>Details</summary>
 <pre>${JSON.stringify(run.tool, null, 4)}</pre></details>
 `;
+            const groupedResults = groupBy(run.results, "ruleId");
 
+            let groupedResultsMarkdown = "";
+            for (const group of groupedResults) {
+                for (const r in group) {
+                    groupedResultsMarkdown +=
+                        `- **${r}**: ${group[r][0] ? escape(group[r][0].message.text) : ""}` + "\n";
+                    for (const result of group[r]) {
+                        const properResult = result as unknown as Result;
+                        if (properResult.suppressions === undefined) {
+                            groupedResultsMarkdown += "    - " + createCodeURL(result, options) + "\n";
+                        }
+                    }
+                }
+            }
             /* Results
             - rule id
             - message
@@ -137,18 +163,7 @@ ${run.tool.driver?.rules?.map((rule: any) => {
                 run.results && run.results.length > 0
                     ? `
 ## Results
-
-${run.results
-    ?.map((result: any) => {
-        return result.suppressions
-            ? ""
-            : `- **${result.ruleId}**: ${escape(result.message.text)}` +
-                  "\n\n" +
-                  createCodeURL(result, options).join("\n") +
-                  "\n";
-    })
-    .join("\n")}
-`
+${groupedResultsMarkdown}`
                     : `
 ## Results
 
@@ -156,23 +171,33 @@ No Error
 
 `;
 
+            let groupedSuppressedResultsMD = "";
+            let suppressedCounter = 0;
+            for (const group of groupedResults) {
+                for (const r in group) {
+                    const groupContainsSuppressed =
+                        group[r].filter((r: Result) => r.suppressions !== undefined).length > 0;
+                    if (groupContainsSuppressed) {
+                        groupedSuppressedResultsMD +=
+                            `- **${r}**: ${group[r][0] ? escape(group[r][0].message.text) : ""}` + "\n";
+                        for (const result of group[r]) {
+                            const properResult = result as unknown as Result;
+                            if (properResult.suppressions !== undefined) {
+                                suppressedCounter += 1;
+                                groupedSuppressedResultsMD += "    - " + createCodeURL(result, options) + "\n";
+                            }
+                        }
+                    }
+                }
+            }
             // careful, double ternary... first check if we should include suppressedresults (return empty string)
             // then check if there are results, if none, return default string
             const suppressedResultsText = suppressedResultsFlag
-                ? run.results && run.results.length > 0
+                ? run.results && suppressedCounter > 0
                     ? `
 ## Suppressed results
 
-${run.results
-    ?.map((result: any) => {
-        return result.suppressions
-            ? `- **${result.ruleId}**: ${escape(result.message.text)}` +
-                  "\n\n" +
-                  createCodeURL(result, options).join("\n") +
-                  "\n"
-            : "";
-    })
-    .join("\n")}
+${groupedSuppressedResultsMD}
 `
                     : `
 ## Results

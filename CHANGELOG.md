@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/azu/security-alert/compare/v1.7.0...v1.8.0) (2022-04-19)
+
+
+### Features
+
+* **sarif-to-comment:** Add a cli flag for sarif-to-comment to define report titles ([#18](https://github.com/azu/security-alert/issues/18)) ([d220bdc](https://github.com/azu/security-alert/commit/d220bdc540552a77d4c09cce46b96f7b4f29b80f))
+
+
+
+
+
 # [1.7.0](https://github.com/azu/security-alert/compare/v1.6.0...v1.7.0) (2022-04-14)
 
 

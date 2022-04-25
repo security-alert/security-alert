@@ -16,6 +16,7 @@ export function run() {
       --token                       GitHub Token, or support environment variables - GITHUB_TOKEN=xxx
       --action                      Authentication mode for the token, defaults to PAT, if set, switches to Github Action
       --ruleDetails                 Include rule details in the markdown, might be too big for Github's API, defaults to false
+      --simple                      Simplify the output to only give findings grouped by rule, adds helpURI if present
       --title                       Specify a comment title for the report, optional
       --no-suppressedResults        Don't include suppressed results, that are in SARIF suppressions
       --commentUrl                  Post to comment URL. e.g. https://github.com/owner/repo/issues/85
@@ -42,6 +43,10 @@ export function run() {
                     default: false
                 },
                 ruleDetails: {
+                    type: "boolean",
+                    default: false
+                },
+                simple: {
                     type: "boolean",
                     default: false
                 },
@@ -101,6 +106,7 @@ export function run() {
             sarifContentSourceRoot: cli.flags.sarifContentSourceRoot,
             ghActionAuthenticationMode: cli.flags.action,
             ruleDetails: cli.flags.ruleDetails,
+            simple: cli.flags.simple,
             suppressedResults: cli.flags.suppressedResults,
             title: cli.flags.title
         }).then((result) => {

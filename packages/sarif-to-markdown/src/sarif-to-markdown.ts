@@ -79,6 +79,10 @@ export type sarifFormatterOptions = {
      * Should the markdown include suppressed findings, defaults to true
      */
     suppressedResults?: boolean;
+    /**
+     * Should the markdown include rule details or tool details at all
+     */
+    simple?: boolean;
 };
 
 function groupBy(arr: Result[], criteria: any) {
@@ -102,12 +106,13 @@ type sarifToMarkdownResult = {
 };
 export const sarifToMarkdown = (options: sarifFormatterOptions): ((sarifLog: Log) => sarifToMarkdownResult[]) => {
     const suppressedResultsFlag = options.suppressedResults !== undefined ? options.suppressedResults : true;
+    const simpleFlag = options.simple !== undefined ? options.simple : false;
 
     return (sarifLog: Log) => {
         return sarifLog.runs.map((run: any) => {
             const title = options.title ? `# ${options.title}\n` : "# Report";
 
-            const toolInfo = `
+            let toolInfo = `
 ## Tool information
 - Name: ${run.tool.driver?.name}
 - Organization: ${run.tool.driver?.organization}
@@ -121,7 +126,7 @@ export const sarifToMarkdown = (options: sarifFormatterOptions): ((sarifLog: Log
             /**
              * # Rule Info
              */
-            const ruleInfo = escapeMarkdown`
+            let ruleInfo = escapeMarkdown`
 ## Rules information
 <!-- Rule Info -->
 <details><summary>Rules details</summary>
@@ -142,8 +147,18 @@ ${run.tool.driver?.rules?.map((rule: any) => {
             let groupedResultsMarkdown = "";
             for (const group of groupedResults) {
                 for (const r in group) {
+                    const ruleId = group[r][0].ruleId;
+                    const ruleMatch = run.tool.driver.rules.filter((r: any) => {
+                        return r.id == ruleId;
+                    });
+                    let severityLevel = "";
+                    if (ruleMatch[0].defaultConfiguration !== "undefined") {
+                        severityLevel = ruleMatch[0].defaultConfiguration.level.toUpperCase();
+                    }
                     groupedResultsMarkdown +=
-                        `- **${r}**: ${group[r][0] ? escape(group[r][0].message.text) : ""}` + "\n";
+                        `- **${"[" + severityLevel + "] " + r}**: ${
+                            group[r][0] ? escape(group[r][0].message.text) : ""
+                        }` + "\n";
                     for (const result of group[r]) {
                         const properResult = result as unknown as Result;
                         if (properResult.suppressions === undefined) {
@@ -167,7 +182,7 @@ ${groupedResultsMarkdown}`
                     : `
 ## Results
 
-No Error
+Nothing here.
 
 `;
 
@@ -200,13 +215,16 @@ No Error
 ${groupedSuppressedResultsMD}
 `
                     : `
-## Results
+## Suppressed Results
 
-No suppressed issues
+Nothing here.
 
 `
                 : "";
-
+            if (simpleFlag) {
+                ruleInfo = "";
+                toolInfo = "";
+            }
             if (options.details) {
                 return {
                     body:

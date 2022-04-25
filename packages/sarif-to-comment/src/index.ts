@@ -22,6 +22,7 @@ export type CreatedOptions = {
     ghActionAuthenticationMode?: boolean;
     ruleDetails?: boolean;
     suppressedResults?: boolean;
+    simple?: boolean;
 };
 
 export async function postComment(options: CreatedOptions) {
@@ -50,7 +51,8 @@ export async function postComment(options: CreatedOptions) {
         branch,
         sourceRoot: options.sarifContentSourceRoot ?? "",
         details: options.ruleDetails,
-        suppressedResults: options.suppressedResults
+        suppressedResults: options.suppressedResults,
+        simple: options.simple
     })(JSON.parse(options.sarifContent));
     const resultsHasMessage = results.filter((result) => result.hasMessages);
     const body = resultsHasMessage

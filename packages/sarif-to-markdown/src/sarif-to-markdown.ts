@@ -128,12 +128,12 @@ function createGroupedResultsMarkdown(groupedResults: any, run: any, options: sa
                 return r.id == ruleId;
             });
             const severityLevel = ruleMatch[0].defaultConfiguration?.level?.toUpperCase() ?? "";
-            const helpUri = ruleMatch[0].helpUri ?? "";
+            const helpUri = "[[HELP LINK](" + ruleMatch[0].helpUri + ")]" ?? "";
 
             groupedResultsMarkdown +=
-                `- **${"[" + severityLevel + "]** **[" + r + "]** | " + helpUri} | ${
+                `- **${"[" + severityLevel + "]** **[" + r + "]** " + helpUri} \`${
                     group[r][0] ? escape(group[r][0].message.text) : ""
-                }` + "\n";
+                }\`` + "\n";
             for (const result of group[r]) {
                 const properResult = result as unknown as Result;
                 if (properResult.suppressions === undefined) {
@@ -156,12 +156,13 @@ function createGroupedSuppressedResultsMarkdown(groupedResults: any, run: any, o
                 const ruleMatch = run.tool.driver.rules.filter((r: any) => {
                     return r.id == ruleId;
                 });
-                let helpUri = ruleMatch[0].helpUri ?? "";
+                const helpUri = "[[HELP LINK](" + ruleMatch[0].helpUri + ")]" ?? "";
                 const severityLevel = ruleMatch[0].defaultConfiguration?.level?.toUpperCase() ?? "";
+
                 groupedSuppressedResultsMD +=
-                    `- **${"[" + severityLevel + "] " + r + " " + helpUri}**: ${
+                    `- **${"[" + severityLevel + "]** **[" + r + "]** " + helpUri} \`${
                         group[r][0] ? escape(group[r][0].message.text) : ""
-                    }` + "\n";
+                    }\`` + "\n";
                 for (const result of group[r]) {
                     const properResult = result as unknown as Result;
                     if (properResult.suppressions !== undefined) {

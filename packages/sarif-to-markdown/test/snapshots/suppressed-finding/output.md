@@ -1,9 +1,11 @@
 # This Is Title
 
 ## Results
-- **[ERROR] js/xss **: Cross-site scripting vulnerability due to \[user-provided value\]\(1\).
+
+- **[ERROR]** **[js/xss]** |  | Cross-site scripting vulnerability due to \[user-provided value\]\(1\).
     - https://github.com/lol/repo/blob/master/base/examples/Xss3.js#L4
     - https://github.com/lol/repo/blob/master/base/examples/Xss5.js#L4
+
 
 
 ## Suppressed results
@@ -23,7 +25,6 @@
 
     > Client-side cross-site scripting
 
- 
 
 ## Tool information
 - Name: CodeQL command-line toolchain

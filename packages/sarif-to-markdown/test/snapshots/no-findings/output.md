@@ -21,7 +21,6 @@ Nothing here.
 
     > Client-side cross-site scripting
 
- 
 
 ## Tool information
 - Name: CodeQL command-line toolchain

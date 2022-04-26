@@ -155,8 +155,10 @@ ${run.tool.driver?.rules?.map((rule: any) => {
                     if (ruleMatch[0].defaultConfiguration !== "undefined") {
                         severityLevel = ruleMatch[0].defaultConfiguration.level.toUpperCase();
                     }
+                    let helpUri = ruleMatch[0].helpUri ?? "";
+
                     groupedResultsMarkdown +=
-                        `- **${"[" + severityLevel + "] " + r}**: ${
+                        `- **${"[" + severityLevel + "] " + r + " " + helpUri}**: ${
                             group[r][0] ? escape(group[r][0].message.text) : ""
                         }` + "\n";
                     for (const result of group[r]) {
@@ -193,8 +195,19 @@ Nothing here.
                     const groupContainsSuppressed =
                         group[r].filter((r: Result) => r.suppressions !== undefined).length > 0;
                     if (groupContainsSuppressed) {
+                        const ruleId = group[r][0].ruleId;
+                        const ruleMatch = run.tool.driver.rules.filter((r: any) => {
+                            return r.id == ruleId;
+                        });
+                        let severityLevel = "";
+                        let helpUri = ruleMatch[0].helpUri ?? "";
+                        if (ruleMatch[0].defaultConfiguration !== "undefined") {
+                            severityLevel = ruleMatch[0].defaultConfiguration.level.toUpperCase();
+                        }
                         groupedSuppressedResultsMD +=
-                            `- **${r}**: ${group[r][0] ? escape(group[r][0].message.text) : ""}` + "\n";
+                            `- **${"[" + severityLevel + "] " + r + " " + helpUri}**: ${
+                                group[r][0] ? escape(group[r][0].message.text) : ""
+                            }` + "\n";
                         for (const result of group[r]) {
                             const properResult = result as unknown as Result;
                             if (properResult.suppressions !== undefined) {

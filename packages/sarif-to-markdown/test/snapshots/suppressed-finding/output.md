@@ -1,14 +1,14 @@
 # This Is Title
 
 ## Results
-- **[ERROR] js/xss**: Cross-site scripting vulnerability due to \[user-provided value\]\(1\).
+- **[ERROR] js/xss **: Cross-site scripting vulnerability due to \[user-provided value\]\(1\).
     - https://github.com/lol/repo/blob/master/base/examples/Xss3.js#L4
     - https://github.com/lol/repo/blob/master/base/examples/Xss5.js#L4
 
 
 ## Suppressed results
 
-- **js/xss**: Cross-site scripting vulnerability due to \[user-provided value\]\(1\).
+- **[ERROR] js/xss **: Cross-site scripting vulnerability due to \[user-provided value\]\(1\).
     - https://github.com/lol/repo/blob/master/base/examples/Xss.js#L4
     - https://github.com/lol/repo/blob/master/base/examples/Xss6.js#L4
 

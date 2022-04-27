@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/azu/security-alert/compare/v1.8.0...v1.9.0) (2022-04-27)
+
+
+### Features
+
+* Adds a simple output mode, helpUri and severity ([#20](https://github.com/azu/security-alert/issues/20)) ([21c7671](https://github.com/azu/security-alert/commit/21c7671aa2f087e4465ac4e9c45cd1cba27b80ab))
+
+
+
+
+
 # [1.7.0](https://github.com/azu/security-alert/compare/v1.6.0...v1.7.0) (2022-04-14)
 
 

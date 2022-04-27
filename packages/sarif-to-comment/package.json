@@ -1,6 +1,6 @@
 {
   "name": "@security-alert/sarif-to-comment",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "post comment to GitHub issue/pull requests",
   "keywords": [
     "sarif",

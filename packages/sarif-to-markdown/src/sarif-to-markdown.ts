@@ -132,7 +132,7 @@ function createGroupedResultsMarkdown(groupedResults: any, run: any, options: sa
             return r.id == rule;
         });
         const severityLevel = ruleMatch[0].defaultConfiguration?.level?.toUpperCase() ?? "";
-        const helpUri = "[[HELP LINK](" + ruleMatch[0].helpUri + ")]" ?? "";
+        const helpUri = ruleMatch[0].helpUri !== undefined ? "[[HELP LINK](" + ruleMatch[0].helpUri + ")]" ?? "" : "";
         groupedResultsMarkdown +=
             `- **${"[" + severityLevel + "]** **[" + rule + "]** " + helpUri} \`${
                 groupedResults[rule][0] ? escape(groupedResults[rule][0].message.text) : ""
@@ -157,7 +157,8 @@ function createGroupedSuppressedResultsMarkdown(groupedResults: any, run: any, o
             const ruleMatch = run.tool.driver.rules.filter((r: any) => {
                 return r.id == rule;
             });
-            const helpUri = "[[HELP LINK](" + ruleMatch[0].helpUri + ")]" ?? "";
+            const helpUri =
+                ruleMatch[0].helpUri !== undefined ? "[[HELP LINK](" + ruleMatch[0].helpUri + ")]" ?? "" : "";
             const severityLevel = ruleMatch[0].defaultConfiguration?.level?.toUpperCase() ?? "";
 
             groupedSuppressedResultsMD +=

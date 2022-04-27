@@ -1,6 +1,6 @@
 {
   "name": "@security-alert/sarif-to-markdown",
-  "version": "1.9.0",
+  "version": "1.7.0",
   "description": "Convert Sarif format to body text",
   "keywords": [
     "sarif",

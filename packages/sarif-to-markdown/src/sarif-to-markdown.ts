@@ -197,63 +197,6 @@ function filterGroupedResultsBySeverity(groupedResults: any, severities: string[
     return filteredResults;
 }
 
-function createGroupedResultsMarkdown(groupedResults: any, run: any, options: sarifFormatterOptions) {
-    let groupedResultsMarkdown = "";
-    for (const group of groupedResults) {
-        for (const r in group) {
-            const ruleId = group[r][0].ruleId;
-            const ruleMatch = run.tool.driver.rules.filter((r: any) => {
-                return r.id == ruleId;
-            });
-            const severityLevel = ruleMatch[0].defaultConfiguration?.level?.toUpperCase() ?? "";
-            const helpUri = "[[HELP LINK](" + ruleMatch[0].helpUri + ")]" ?? "";
-
-            groupedResultsMarkdown +=
-                `- **${"[" + severityLevel + "]** **[" + r + "]** " + helpUri} \`${
-                    group[r][0] ? escape(group[r][0].message.text) : ""
-                }\`` + "\n";
-            for (const result of group[r]) {
-                const properResult = result as unknown as Result;
-                if (properResult.suppressions === undefined) {
-                    groupedResultsMarkdown += "    - " + createCodeURL(result, options) + "\n";
-                }
-            }
-        }
-    }
-    return groupedResultsMarkdown;
-}
-
-function createGroupedSuppressedResultsMarkdown(groupedResults: any, run: any, options: sarifFormatterOptions) {
-    let groupedSuppressedResultsMD = "";
-    let suppressedCounter = 0;
-    for (const group of groupedResults) {
-        for (const r in group) {
-            const groupContainsSuppressed = group[r].filter((r: Result) => r.suppressions !== undefined).length > 0;
-            if (groupContainsSuppressed) {
-                const ruleId = group[r][0].ruleId;
-                const ruleMatch = run.tool.driver.rules.filter((r: any) => {
-                    return r.id == ruleId;
-                });
-                const helpUri = "[[HELP LINK](" + ruleMatch[0].helpUri + ")]" ?? "";
-                const severityLevel = ruleMatch[0].defaultConfiguration?.level?.toUpperCase() ?? "";
-
-                groupedSuppressedResultsMD +=
-                    `- **${"[" + severityLevel + "]** **[" + r + "]** " + helpUri} \`${
-                        group[r][0] ? escape(group[r][0].message.text) : ""
-                    }\`` + "\n";
-                for (const result of group[r]) {
-                    const properResult = result as unknown as Result;
-                    if (properResult.suppressions !== undefined) {
-                        suppressedCounter += 1;
-                        groupedSuppressedResultsMD += "    - " + createCodeURL(result, options) + "\n";
-                    }
-                }
-            }
-        }
-    }
-    return { groupedSuppressedResultsMD, suppressedCounter };
-}
-
 type sarifToMarkdownResult = {
     title?: string;
     body: string;
@@ -280,7 +223,6 @@ export const sarifToMarkdown = (options: sarifFormatterOptions): ((sarifLog: Log
             const filteredResults = filterGroupedResultsBySeverity(groupedResults, severities, run);
             const groupedResultsMarkdown = createGroupedResultsMarkdown(filteredResults, run, options);
 
-            const groupedResultsMarkdown = createGroupedResultsMarkdown(groupedResults, run, options);
             /* Results
             - rule id
             - message

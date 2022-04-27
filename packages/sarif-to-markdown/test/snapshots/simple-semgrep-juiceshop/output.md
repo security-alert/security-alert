@@ -5,14 +5,12 @@
 - **[ERROR]** **[generic.secrets.security.detected-generic-secret.detected-generic-secret]**  `Generic Secret detected`
     - https://github.com/juice-shop/juice-shop/blob/master/data/static/users.yml#L150-150
 - **[WARNING]** **[javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal]**  `Possible writing outside of the destination, make sure that the target path is nested in the intended destination`
-
     - https://github.com/juice-shop/juice-shop/blob/master/data/datacreator.ts#L26-26
     - https://github.com/juice-shop/juice-shop/blob/master/lib/startup/validatePreconditions.ts#L95-95
     - https://github.com/juice-shop/juice-shop/blob/master/models/index.ts#L31-31
     - https://github.com/juice-shop/juice-shop/blob/master/routes/fileUpload.ts#L47-48
     - https://github.com/juice-shop/juice-shop/blob/master/routes/vulnCodeSnippet.ts#L32-32
 - **[WARNING]** **[javascript.lang.security.audit.detect-bracket-object-injection.detect-bracket-object-injection]**  `Detected user input used in bracket notation accessor. This could lead to object injection through property, which could grant access to every property available in the object and therefore sensitive information. Instead, avoid the use of user input in property name fields or create a whitelist of allowed input.`
-
     - https://github.com/juice-shop/juice-shop/blob/master/frontend/src/hacking-instructor/helpers/helpers.ts#L29-29
     - https://github.com/juice-shop/juice-shop/blob/master/lib/utils.ts#L276-276
     - https://github.com/juice-shop/juice-shop/blob/master/lib/utils.ts#L287-287
@@ -25,7 +23,6 @@
     - https://github.com/juice-shop/juice-shop/blob/master/server.ts#L594-594
     - https://github.com/juice-shop/juice-shop/blob/master/server.ts#L606-606
 - **[WARNING]** **[javascript.lang.security.audit.code-string-concat.code-string-concat]**  `User controlled data in eval\(\) or similar functions may result in Code Injection`
-
     - https://github.com/juice-shop/juice-shop/blob/master/data/static/codefixes/adminSectionChallenge_3.ts#L3-3
     - https://github.com/juice-shop/juice-shop/blob/master/data/static/codefixes/adminSectionChallenge_3.ts#L3-3
     - https://github.com/juice-shop/juice-shop/blob/master/lib/startup/validateChatBot.ts#L37-37
@@ -34,7 +31,6 @@
     - https://github.com/juice-shop/juice-shop/blob/master/routes/userProfile.ts#L52-52
     - https://github.com/juice-shop/juice-shop/blob/master/server.ts#L175-175
 - **[WARNING]** **[javascript.lang.security.audit.detect-non-literal-fs-filename.detect-non-literal-fs-filename]**  `A variable is present in the filename argument of fs calls, this might allow an attacker to access anything on your system.`
-
     - https://github.com/juice-shop/juice-shop/blob/master/Gruntfile.js#L72-72
     - https://github.com/juice-shop/juice-shop/blob/master/routes/order.ts#L32-32
     - https://github.com/juice-shop/juice-shop/blob/master/routes/vulnCodeFixes.ts#L30-30
@@ -52,7 +48,6 @@
     - https://github.com/juice-shop/juice-shop/blob/master/data/static/codefixes/restfulXssChallenge_2.ts#L59-59
     - https://github.com/juice-shop/juice-shop/blob/master/data/static/codefixes/restfulXssChallenge_2.ts#L59-59
 - **[NOTE]** **[javascript.lang.security.audit.non-constant-sql-query.non-constant-sql-query]**  `Non-constant SQL query detected. Ensure this is not controlled by external data, otherwise this is a SQL injection.`
-
     - https://github.com/juice-shop/juice-shop/blob/master/data/static/codefixes/dbSchemaChallenge_1.ts#L5-5
     - https://github.com/juice-shop/juice-shop/blob/master/data/static/codefixes/dbSchemaChallenge_2_correct.ts#L5-8
     - https://github.com/juice-shop/juice-shop/blob/master/data/static/codefixes/dbSchemaChallenge_3.ts#L11-11
@@ -69,7 +64,6 @@
 - **[WARNING]** **[javascript.lang.security.detect-non-literal-require.detect-non-literal-require]**  `Detected the use of require\(variable\). Calling require with a non-literal argument might allow an attacker to load an run arbitrary code, or access arbitrary files.`
     - https://github.com/juice-shop/juice-shop/blob/master/models/index.ts#L31-31
 - **[WARNING]** **[typescript.angular.security.audit.angular-domsanitizer.angular-bypasssecuritytrust]**  `Bypassing the built-in sanitization could expose the application to cross-site scripting \(XSS\).`
-
     - https://github.com/juice-shop/juice-shop/blob/master/data/static/codefixes/localXssChallenge_1.ts#L6-6
     - https://github.com/juice-shop/juice-shop/blob/master/data/static/codefixes/localXssChallenge_3.ts#L6-6
     - https://github.com/juice-shop/juice-shop/blob/master/data/static/codefixes/localXssChallenge_4.ts#L6-6
@@ -87,7 +81,6 @@
 - **[WARNING]** **[javascript.lang.security.audit.unsafe-dynamic-method.unsafe-dynamic-method]**  `Using non-static data to retrieve and run functions from the object is dangerous. If the data is user-controlled, it may allow executing arbitrary code.`
     - https://github.com/juice-shop/juice-shop/blob/master/routes/chatbot.ts#L82-82
 - **[NOTE]** **[generic.ci.security.use-frozen-lockfile.use-frozen-lockfile-npm]**  `To ensure reproducable and deterministic builds, use `npm ci` rather than `npm install` in scripts. This will use the lockfile rather than updating it.`
-
     - https://github.com/juice-shop/juice-shop/blob/master/.github/workflows/ci.yml#L31-31
     - https://github.com/juice-shop/juice-shop/blob/master/.github/workflows/ci.yml#L34-34
     - https://github.com/juice-shop/juice-shop/blob/master/.github/workflows/ci.yml#L36-36
@@ -121,7 +114,6 @@
 ## Suppressed results
 
 - **[ERROR]** **[generic.secrets.security.detected-private-key.detected-private-key]**  `Private Key detected. This is a sensitive credential and should not be hardcoded here. Instead, store this in a separate, private file.`
-
     - https://github.com/juice-shop/juice-shop/blob/master/lib/insecurity.js#L19-19
 
 

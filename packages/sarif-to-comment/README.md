@@ -28,7 +28,7 @@ Install with [npm](https://www.npmjs.com/):
       --action                      Authentication mode for the token, defaults to PAT, if set, switches to Github Action
       --ruleDetails                 Include full JSON rule details in the markdown, might be too big for Github's API, defaults to false
       --simple                      Simplify the output to only give findings grouped by rule, adds helpURI if present
-      --severity                    Filter issues by their severity level, warning, error, note, none (supports multiple flags)
+      --severity                    Filter issues by their severity level, warning, error, note, none (separated by commas)
       --commentUrl                  Post to comment URL. e.g. https://github.com/owner/repo/issues/85
       --title                       Specify a comment title for the report, optional
       --no-suppressedResults        Don't include suppressed results, that are in SARIF suppressions

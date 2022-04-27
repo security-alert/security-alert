@@ -1,13 +1,15 @@
 # This Is Title
 
 ## Results
-- **js/xss**: Cross-site scripting vulnerability due to \[user-provided value\]\(1\).
+
+- **[ERROR]** **[js/xss]** [[HELP LINK](undefined)] `Cross-site scripting vulnerability due to \[user-provided value\]\(1\).`
     - https://github.com/owner/repo/blob/master/base/examples/Xss2.js#L4
+
 
 
 ## Suppressed results
 
-- **js/xss**: Cross-site scripting vulnerability due to \[user-provided value\]\(1\).
+- **[ERROR]** **[js/xss]** [[HELP LINK](undefined)] `Cross-site scripting vulnerability due to \[user-provided value\]\(1\).`
     - https://github.com/owner/repo/blob/master/base/examples/Xss.js#L4
 
 
@@ -21,7 +23,6 @@
 
     > Client-side cross-site scripting
 
- 
 <details><summary>Details</summary>
 <pre>{
     "driver": {

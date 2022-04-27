@@ -2,13 +2,13 @@
 
 ## Results
 
-No Error
+Nothing here.
 
 
 
-## Results
+## Suppressed Results
 
-No suppressed issues
+Nothing here.
 
 
 
@@ -21,7 +21,6 @@ No suppressed issues
 
     > Client-side cross-site scripting
 
- 
 
 ## Tool information
 - Name: CodeQL command-line toolchain

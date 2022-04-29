@@ -1,7 +1,7 @@
 import meow from "meow";
 import { postComment } from "./index";
 import * as fs from "fs";
-const ALLOWED_SEVERITIES = ["warning", "error", "note", "none"];
+const ALLOWED_SEVERITIES = ["warning", "error", "note", "none"] as const;
 export function run() {
     const cli = meow(
         `

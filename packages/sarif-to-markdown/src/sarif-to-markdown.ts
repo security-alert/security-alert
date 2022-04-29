@@ -123,7 +123,6 @@ function groupBy(arr: Result[], criteria: any) {
     return newObj;
 }
 
-// @ts-ignore
 function createGroupedResultsMarkdown(groupedResults: any, run: any, options: sarifFormatterOptions) {
     let groupedResultsMarkdown = "";
     for (const rule in groupedResults) {

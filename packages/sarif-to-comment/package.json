@@ -46,7 +46,7 @@
     "@octokit/auth-action": "^1.3.3",
     "@octokit/rest": "^18.0.3",
     "@security-alert/sarif-to-markdown": "^1.7.0",
-    "meow": "^10.1.2"
+    "meow": "^9.0.0"
   },
   "devDependencies": {
     "@types/mocha": "^8.0.1",

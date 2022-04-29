@@ -178,7 +178,7 @@ function createGroupedSuppressedResultsMarkdown(groupedResults: any, run: any, o
 function filterGroupedResultsBySeverity(groupedResults: any, severities: string[], run: Run) {
     // 1st step, go through run and find rule severities
     // 2nd step, filter groupedResults and remove rulegroups that don't match the severities filter
-    let ruleSeverityMapping = new Map<string, string>();
+    const ruleSeverityMapping = new Map<string, string>();
     run.tool.driver?.rules?.map((rule: ReportingDescriptor) => {
         const severity = rule.defaultConfiguration?.level ?? "";
         ruleSeverityMapping.set(rule.id, severity);

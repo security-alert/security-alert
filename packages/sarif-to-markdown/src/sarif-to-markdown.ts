@@ -109,7 +109,7 @@ export type sarifFormatterOptions = {
     /**
      * Which severities should be included ?
      */
-    severities?: string[];
+    severities?: readonly string[];
 };
 
 function groupBy(arr: Result[], criteria: any) {
@@ -175,7 +175,7 @@ function createGroupedSuppressedResultsMarkdown(groupedResults: any, run: any, o
     return { groupedSuppressedResultsMD, suppressedCounter };
 }
 
-function filterGroupedResultsBySeverity(groupedResults: any, severities: string[], run: Run) {
+function filterGroupedResultsBySeverity(groupedResults: any, severities: readonly string[], run: Run) {
     // 1st step, go through run and find rule severities
     // 2nd step, filter groupedResults and remove rulegroups that don't match the severities filter
     const ruleSeverityMapping = new Map<string, string>();
@@ -243,7 +243,7 @@ Nothing here.
 `;
 
             const { groupedSuppressedResultsMD, suppressedCounter } = createGroupedSuppressedResultsMarkdown(
-                groupedResults,
+                filteredResults,
                 run,
                 options
             );

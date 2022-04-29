@@ -23,7 +23,7 @@ export type CreatedOptions = {
     ruleDetails?: boolean;
     suppressedResults?: boolean;
     simple?: boolean;
-    severity?: string[];
+    severity?: readonly string[];
 };
 
 export async function postComment(options: CreatedOptions) {

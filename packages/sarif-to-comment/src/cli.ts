@@ -53,7 +53,6 @@ export function run() {
                 },
                 severity: {
                     type: "string",
-                    default: ["warning", "error", "note", "none"],
                     isMultiple: true
                 },
                 title: {
@@ -99,13 +98,15 @@ export function run() {
         cli.showHelp(1);
         return;
     }
-    const unknownSeverities = cli.flags.severity.filter((s) => {
-        return !ALLOWED_SEVERITIES.includes(s);
-    });
-    if (unknownSeverities.length > 0) {
-        console.log(`unrecognized severity defined: ${unknownSeverities.join(",")}
+    if (cli.flags.severity) {
+        const unknownSeverities = cli.flags.severity.filter((s: any) => {
+            return !ALLOWED_SEVERITIES.includes(s);
+        });
+        if (unknownSeverities.length > 0) {
+            console.log(`unrecognized severity defined: ${unknownSeverities.join(",")}
         Allowed values are: ${ALLOWED_SEVERITIES.join(",")}`);
-        cli.showHelp(1);
+            cli.showHelp(1);
+        }
     }
     const promises = cli.input.map((sarifFilePath) => {
         const content = fs.readFileSync(sarifFilePath, "utf-8");
@@ -121,7 +122,7 @@ export function run() {
             ghActionAuthenticationMode: cli.flags.action,
             ruleDetails: cli.flags.ruleDetails,
             simple: cli.flags.simple,
-            severity: cli.flags.severity,
+            severity: cli.flags.severity?.length != 0 ? cli.flags.severity : ALLOWED_SEVERITIES,
             suppressedResults: cli.flags.suppressedResults,
             title: cli.flags.title
         }).then((result) => {

@@ -38,7 +38,6 @@ export function run() {
 
 `,
         {
-            importMeta: import.meta,
             flags: {
                 action: {
                     type: "boolean",
@@ -100,12 +99,12 @@ export function run() {
         cli.showHelp(1);
         return;
     }
-    if (
-        cli.flags.severity.filter((s: string) => {
-            ALLOWED_SEVERITIES.includes(s);
-        })
-    ) {
-        console.log("Unrecognized severity defined ! Allowed values are : " + ALLOWED_SEVERITIES.join(","));
+    const unknownSeverities = cli.flags.severity.filter((s) => {
+        return !ALLOWED_SEVERITIES.includes(s);
+    });
+    if (unknownSeverities.length > 0) {
+        console.log(`unrecognized severity defined: ${unknownSeverities.join(",")}
+        Allowed values are: ${ALLOWED_SEVERITIES.join(",")}`);
         cli.showHelp(1);
     }
     const promises = cli.input.map((sarifFilePath) => {

@@ -1,4 +1,3 @@
-// @ts-ignore
 import type { Log, Result, Run, ReportingDescriptor } from "sarif";
 // @ts-ignore
 import escape from "markdown-escape";

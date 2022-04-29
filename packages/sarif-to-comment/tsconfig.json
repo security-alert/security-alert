@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     /* Basic Options */
-    "module": "system",
+    "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "newLine": "LF",

@@ -23,6 +23,7 @@ export type CreatedOptions = {
     ruleDetails?: boolean;
     suppressedResults?: boolean;
     simple?: boolean;
+    severity?: readonly string[];
 };
 
 export async function postComment(options: CreatedOptions) {
@@ -52,7 +53,8 @@ export async function postComment(options: CreatedOptions) {
         sourceRoot: options.sarifContentSourceRoot ?? "",
         details: options.ruleDetails,
         suppressedResults: options.suppressedResults,
-        simple: options.simple
+        simple: options.simple,
+        severities: options.severity
     })(JSON.parse(options.sarifContent));
     const resultsHasMessage = results.filter((result) => result.hasMessages);
     const body = resultsHasMessage

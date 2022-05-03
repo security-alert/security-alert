@@ -1,7 +1,7 @@
 import meow from "meow";
 import { postComment } from "./index";
 import * as fs from "fs";
-
+const ALLOWED_SEVERITIES = ["warning", "error", "note", "none"] as const;
 export function run() {
     const cli = meow(
         `
@@ -17,6 +17,7 @@ export function run() {
       --action                      Authentication mode for the token, defaults to PAT, if set, switches to Github Action
       --ruleDetails                 Include rule details in the markdown, might be too big for Github's API, defaults to false
       --simple                      Simplify the output to only give findings grouped by rule, adds helpURI if present
+      --severity                    Filter issues by their severity level, warning, error, note, none, set flag for each level      
       --title                       Specify a comment title for the report, optional
       --no-suppressedResults        Don't include suppressed results, that are in SARIF suppressions
       --commentUrl                  Post to comment URL. e.g. https://github.com/owner/repo/issues/85
@@ -49,6 +50,10 @@ export function run() {
                 simple: {
                     type: "boolean",
                     default: false
+                },
+                severity: {
+                    type: "string",
+                    isMultiple: true
                 },
                 title: {
                     type: "string"
@@ -93,6 +98,16 @@ export function run() {
         cli.showHelp(1);
         return;
     }
+    if (cli.flags.severity) {
+        const unknownSeverities = cli.flags.severity.filter((s: any) => {
+            return !ALLOWED_SEVERITIES.includes(s);
+        });
+        if (unknownSeverities.length > 0) {
+            console.log(`unrecognized severity defined: ${unknownSeverities.join(",")}
+        Allowed values are: ${ALLOWED_SEVERITIES.join(",")}`);
+            cli.showHelp(1);
+        }
+    }
     const promises = cli.input.map((sarifFilePath) => {
         const content = fs.readFileSync(sarifFilePath, "utf-8");
         return postComment({
@@ -107,6 +122,7 @@ export function run() {
             ghActionAuthenticationMode: cli.flags.action,
             ruleDetails: cli.flags.ruleDetails,
             simple: cli.flags.simple,
+            severity: cli.flags.severity?.length != 0 ? cli.flags.severity : ALLOWED_SEVERITIES,
             suppressedResults: cli.flags.suppressedResults,
             title: cli.flags.title
         }).then((result) => {

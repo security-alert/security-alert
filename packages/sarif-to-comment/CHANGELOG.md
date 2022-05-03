@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/azu/security-alert/compare/v1.9.0...v1.10.0) (2022-05-03)
+
+
+### Features
+
+* Severity filtering ([#23](https://github.com/azu/security-alert/issues/23)) ([28b0f2f](https://github.com/azu/security-alert/commit/28b0f2f59927012f5efdc591bc180e75d33886bd))
+
+
+
+
+
 # [1.9.0](https://github.com/azu/security-alert/compare/v1.8.0...v1.9.0) (2022-04-27)
 
 

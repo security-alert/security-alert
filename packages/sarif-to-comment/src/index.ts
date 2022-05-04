@@ -35,12 +35,16 @@ export async function postComment(options: CreatedOptions) {
     const issuePattern =
         /^https:\/\/github.com\/(?<owner>[0-9a-zA-Z-_.]+)\/(?<repo>[0-9a-zA-Z-_.]+)\/issues\/(?<issueNumber>[0-9]+)/;
     const matchObj = issuePattern.exec(options.postingURL);
+    const content = JSON.parse(options.sarifContent);
     if (!matchObj || !matchObj.groups) {
         throw new Error(
             "Should set security alert url.\n" +
                 "\n" +
                 "Example: https://github.com/owner/reponame/network/alert/package-lock.json/axios/open"
         );
+    }
+    if (content?.runs?.[0]?.results.length === 0) {
+        throw new Error("There are no results in this SARIF run 0, exiting without a comment !");
     }
     const postingOwner: string = matchObj.groups.owner;
     const postringRepo: string = matchObj.groups.repo;

@@ -39,7 +39,7 @@
     "build": "tsc -p . && tsc --project ./tsconfig.module.json",
     "clean": "rimraf lib/ module/",
     "prepublish": "npm run --if-present build",
-    "test": "exit 0",
+    "test": "mocha \"test/**/*.ts\"",
     "watch": "tsc -p . --watch"
   },
   "dependencies": {

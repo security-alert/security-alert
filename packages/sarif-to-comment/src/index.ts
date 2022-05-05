@@ -26,7 +26,9 @@ export type CreatedOptions = {
     severity?: readonly string[];
 };
 
-export async function postComment(options: CreatedOptions) {
+export type PostedCommentResult = { posted: true; commentUrl: string } | { posted: false; reason: string };
+
+export async function postComment(options: CreatedOptions): Promise<PostedCommentResult> {
     const dryRun = options.dryRun !== undefined ? options.dryRun : false;
     const owner = options.sarifContentOwner;
     const repo = options.sarifContentRepo;
@@ -44,7 +46,7 @@ export async function postComment(options: CreatedOptions) {
         );
     }
     if (content?.runs?.[0]?.results.length === 0) {
-        throw new Error("There are no results in this SARIF run 0, exiting without a comment !");
+        return { posted: false, reason: "There are no results in this SARIF run 0, exiting without a comment ! " };
     }
     const postingOwner: string = matchObj.groups.owner;
     const postringRepo: string = matchObj.groups.repo;
@@ -77,12 +79,12 @@ issue: ${options.postingURL}
 title: ${options.title}
 body: ${body}
 `);
-        return;
+        return { posted: false, reason: "This is a dry run" };
     } else {
         if (resultsHasMessage.length === 0) {
-            return;
+            return { posted: false, reason: "Markdown extracted from SARIF was empty" };
         }
-        return issueComment({
+        const url = await issueComment({
             owner: postingOwner,
             repo: postringRepo,
             issue_number: postringNumber,
@@ -90,5 +92,7 @@ body: ${body}
             token: options.token,
             ghActionAuthentication: options.ghActionAuthenticationMode
         });
+        console.log(url);
+        return { posted: true, commentUrl: url.html_url.toString() };
     }
 }

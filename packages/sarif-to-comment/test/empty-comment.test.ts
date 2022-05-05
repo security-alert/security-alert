@@ -4,7 +4,6 @@ import * as assert from "assert";
 // transform function
 import { postComment } from "../src/index";
 
-console.log(__dirname);
 const sarifDir = path.join(__dirname);
 const actualFilePath = path.join(sarifDir, "sarif.json");
 

@@ -134,14 +134,16 @@ export function run() {
         });
     });
     return Promise.all(promises).then((commentsResults: any) => {
-        const postedURLS = commentsResults.filter((c: any) => c.posted);
-        const emptyURLS = commentsResults.filter((c: any) => !c.posted);
-        if (emptyURLS.length > 0) {
-            console.log("Some comments were not posted, here are the reasons:");
-            emptyURLS.forEach((val: any) => console.log(val.reason));
-            console.log(postedURLS.join("\n"));
-            process.exit(0);
+        const postedURLS = commentsResults.map((c: any) => {
+            if (c.posted) return c.commentUrl;
+        });
+        const emptyURLReasons = commentsResults.map((c: any) => {
+            if (!c.posted) return c.reason;
+        });
+
+        if (emptyURLReasons.length > 0) {
+            console.log("Some comments were not posted, reasons will be included");
         }
-        return postedURLS.join("\n");
+        return (postedURLS + emptyURLReasons).join("\n");
     });
 }

@@ -17,15 +17,11 @@ describe("Testing", () => {
             sarifContentBranch: "aa",
             token: "aa"
         };
+        const result = await postComment(actualOptions);
 
-        await assert.rejects(
-            async () => {
-                await postComment(actualOptions);
-            },
-            {
-                name: "Error", //  error type
-                message: "There are no results in this SARIF run 0, exiting without a comment !" // error message
-            }
-        );
+        assert.deepStrictEqual(result, {
+            posted: false, //  error type
+            reason: "There are no results in this SARIF run 0, exiting without a comment !" // error message
+        });
     });
 });

@@ -46,7 +46,7 @@ export async function postComment(options: CreatedOptions): Promise<PostedCommen
         );
     }
     if (content?.runs?.[0]?.results.length === 0) {
-        return { posted: false, reason: "There are no results in this SARIF run 0, exiting without a comment ! " };
+        return { posted: false, reason: "There are no results in this SARIF run 0, exiting without a comment !" };
     }
     const postingOwner: string = matchObj.groups.owner;
     const postringRepo: string = matchObj.groups.repo;
@@ -70,7 +70,7 @@ export async function postComment(options: CreatedOptions): Promise<PostedCommen
         .join("\n\n");
     if (dryRun) {
         if (resultsHasMessage.length === 0) {
-            console.log("It will not post, because the content has not results.");
+            console.log("It will not post, because the markdown is empty");
         }
         console.log(`DryRun results:
 owner: ${owner}

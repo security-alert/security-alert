@@ -92,7 +92,6 @@ body: ${body}
             token: options.token,
             ghActionAuthentication: options.ghActionAuthenticationMode
         });
-        console.log(url);
         return { posted: true, commentUrl: url.html_url.toString() };
     }
 }

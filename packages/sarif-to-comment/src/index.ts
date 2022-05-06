@@ -26,7 +26,9 @@ export type CreatedOptions = {
     severity?: readonly string[];
 };
 
-export async function postComment(options: CreatedOptions) {
+export type PostedCommentResult = { posted: true; commentUrl: string } | { posted: false; reason: string };
+
+export async function postComment(options: CreatedOptions): Promise<PostedCommentResult> {
     const dryRun = options.dryRun !== undefined ? options.dryRun : false;
     const owner = options.sarifContentOwner;
     const repo = options.sarifContentRepo;
@@ -35,12 +37,16 @@ export async function postComment(options: CreatedOptions) {
     const issuePattern =
         /^https:\/\/github.com\/(?<owner>[0-9a-zA-Z-_.]+)\/(?<repo>[0-9a-zA-Z-_.]+)\/issues\/(?<issueNumber>[0-9]+)/;
     const matchObj = issuePattern.exec(options.postingURL);
+    const content = JSON.parse(options.sarifContent);
     if (!matchObj || !matchObj.groups) {
         throw new Error(
             "Should set security alert url.\n" +
                 "\n" +
                 "Example: https://github.com/owner/reponame/network/alert/package-lock.json/axios/open"
         );
+    }
+    if (content?.runs?.[0]?.results.length === 0) {
+        return { posted: false, reason: "There are no results in this SARIF run 0, exiting without a comment !" };
     }
     const postingOwner: string = matchObj.groups.owner;
     const postringRepo: string = matchObj.groups.repo;
@@ -64,7 +70,7 @@ export async function postComment(options: CreatedOptions) {
         .join("\n\n");
     if (dryRun) {
         if (resultsHasMessage.length === 0) {
-            console.log("It will not post, because the content has not results.");
+            console.log("It will not post, because the markdown is empty");
         }
         console.log(`DryRun results:
 owner: ${owner}
@@ -73,12 +79,12 @@ issue: ${options.postingURL}
 title: ${options.title}
 body: ${body}
 `);
-        return;
+        return { posted: false, reason: "This is a dry run" };
     } else {
         if (resultsHasMessage.length === 0) {
-            return;
+            return { posted: false, reason: "Markdown extracted from SARIF was empty" };
         }
-        return issueComment({
+        const url = await issueComment({
             owner: postingOwner,
             repo: postringRepo,
             issue_number: postringNumber,
@@ -86,5 +92,7 @@ body: ${body}
             token: options.token,
             ghActionAuthentication: options.ghActionAuthenticationMode
         });
+        console.log(url);
+        return { posted: true, commentUrl: url.html_url.toString() };
     }
 }

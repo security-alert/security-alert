@@ -444,5 +444,9 @@ postComment({
     token: process.env.GITHUB_TOKEN!,
     dryRun: false
 }).then((res) => {
-    console.log(res?.html_url);
+    if (res.posted) {
+        console.log(res?.commentUrl);
+    } else {
+        console.log(res?.reason);
+    }
 });

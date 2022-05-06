@@ -2,6 +2,7 @@ import meow from "meow";
 import { postComment } from "./index";
 import * as fs from "fs";
 const ALLOWED_SEVERITIES = ["warning", "error", "note", "none"] as const;
+
 export function run() {
     const cli = meow(
         `
@@ -108,9 +109,9 @@ export function run() {
             cli.showHelp(1);
         }
     }
-    const promises = cli.input.map((sarifFilePath) => {
+    const promises = cli.input.map(async (sarifFilePath) => {
         const content = fs.readFileSync(sarifFilePath, "utf-8");
-        return postComment({
+        return await postComment({
             token: token,
             dryRun: cli.flags.dryRun,
             postingURL: cli.flags.commentUrl,
@@ -129,10 +130,20 @@ export function run() {
             if (!result) {
                 return "";
             }
-            return result.html_url;
+            return result;
         });
     });
-    return Promise.all(promises).then((issuesURL) => {
-        return issuesURL.join("\n");
+    return Promise.all(promises).then((commentsResults: any) => {
+        const postedURLS = commentsResults.map((c: any) => {
+            if (c.posted) return c.commentUrl;
+        });
+        const emptyURLReasons = commentsResults.map((c: any) => {
+            if (!c.posted) return c.reason;
+        });
+
+        if (emptyURLReasons.length > 0) {
+            console.log("Some comments were not posted, reasons will be included");
+        }
+        return (postedURLS + emptyURLReasons).join("\n");
     });
 }

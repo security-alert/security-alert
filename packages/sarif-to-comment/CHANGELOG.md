@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.1](https://github.com/azu/security-alert/compare/v1.10.0...v1.10.1) (2022-05-06)
+
+
+### Bug Fixes
+
+* Don't comment if no results ([#24](https://github.com/azu/security-alert/issues/24)) ([6314bf7](https://github.com/azu/security-alert/commit/6314bf7d7daba2e2bd5b1e00e0b1a9544a1c5b8a))
+
+
+
+
+
 # [1.10.0](https://github.com/azu/security-alert/compare/v1.9.0...v1.10.0) (2022-05-03)
 
 

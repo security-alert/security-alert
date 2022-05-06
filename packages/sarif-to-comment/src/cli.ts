@@ -144,6 +144,6 @@ export function run() {
         if (emptyURLReasons.length > 0) {
             console.log("Some comments were not posted, reasons will be included");
         }
-        return (postedURLS + emptyURLReasons).join("\n");
+        return postedURLS.concat(emptyURLReasons).join("\n");
     });
 }

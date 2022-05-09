@@ -229,7 +229,7 @@ export const sarifToMarkdown = (options: sarifFormatterOptions): ((sarifLog: Log
             If pass the scan, results is empty array
             */
             const results =
-                run.results && run.results.length > 0
+                run.results && run.results.length > 0 && Object.keys(filteredResults).length > 0
                     ? `
 ## Results
 
@@ -276,12 +276,12 @@ Nothing here.
                         "\n" +
                         ruleDetails +
                         toolInfo,
-                    hasMessages: run.results?.length !== 0
+                    hasMessages: run.results?.length !== 0 && Object.keys(filteredResults).length !== 0
                 };
             }
             return {
                 body: title + results + "\n" + suppressedResultsText + "\n" + ruleInfo + "\n" + toolInfo,
-                hasMessages: run.results?.length !== 0
+                hasMessages: run.results?.length !== 0 && Object.keys(filteredResults).length !== 0
             };
         });
     };

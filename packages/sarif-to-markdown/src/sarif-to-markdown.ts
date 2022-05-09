@@ -220,7 +220,7 @@ export const sarifToMarkdown = (options: sarifFormatterOptions): ((sarifLog: Log
             const groupedResults = groupBy(run.results, "ruleId");
             const filteredResults = filterGroupedResultsBySeverity(groupedResults, severities, run);
             const groupedResultsMarkdown = createGroupedResultsMarkdown(filteredResults, run, options);
-
+            const hasMessage = run.results && run.results.length > 0 && Object.keys(filteredResults).length > 0;
             /* Results
             - rule id
             - message
@@ -228,14 +228,13 @@ export const sarifToMarkdown = (options: sarifFormatterOptions): ((sarifLog: Log
 
             If pass the scan, results is empty array
             */
-            const results =
-                run.results && run.results.length > 0
-                    ? `
+            const results = hasMessage
+                ? `
 ## Results
 
 ${groupedResultsMarkdown}
 `
-                    : `
+                : `
 ## Results
 
 Nothing here.
@@ -276,12 +275,12 @@ Nothing here.
                         "\n" +
                         ruleDetails +
                         toolInfo,
-                    hasMessages: run.results?.length !== 0
+                    hasMessages: hasMessage
                 };
             }
             return {
                 body: title + results + "\n" + suppressedResultsText + "\n" + ruleInfo + "\n" + toolInfo,
-                hasMessages: run.results?.length !== 0
+                hasMessages: hasMessage
             };
         });
     };

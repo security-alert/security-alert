@@ -1,6 +1,6 @@
 {
   "name": "@security-alert/sarif-to-issue",
-  "version": "1.10.0",
+  "version": "1.10.3",
   "description": "Create an issue from SARIF file",
   "keywords": [
     "codeql",
@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@octokit/rest": "^18.0.3",
-    "@security-alert/sarif-to-markdown": "^1.10.0",
+    "@security-alert/sarif-to-markdown": "^1.10.3",
     "meow": "^7.0.1"
   },
   "devDependencies": {

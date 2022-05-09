@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.3](https://github.com/azu/security-alert/compare/v1.10.2...v1.10.3) (2022-05-09)
+
+
+### Bug Fixes
+
+* Implement fix by looking at filtered length for hasMessages ([#29](https://github.com/azu/security-alert/issues/29)) ([11f9a96](https://github.com/azu/security-alert/commit/11f9a96ca094ab62e63d460a89e40ea6e040b5a0))
+
+
+
+
+
 # [1.10.0](https://github.com/azu/security-alert/compare/v1.9.0...v1.10.0) (2022-05-03)
 
 

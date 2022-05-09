@@ -51,6 +51,14 @@ For bugs and feature requests, [please create an issue](https://github.com/azu/c
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
 
+## Releases
+
+Release all packages via following command:
+
+    GH_TOKEN="${GITHUB_TOKEN}" npm run versionup -- --create-release=github && npm run release -- --yes
+    # or just release and write Release Note manually
+    # npm run versionup && npm run release -- --yes
+
 ## Author
 
 - [github/azu](https://github.com/azu)

@@ -33,7 +33,7 @@ Using with [npx](https://www.npmjs.com/package/npx):
 
 
 ```shell
-$ GITHUB_TOKEN="$GITHUB_TOKEN" npx @security-alert/list-alerts --repo azu/github-webhook-SecurityVulnerability-test
+$ GITHUB_TOKEN="$GITHUB_TOKEN" npx @security-alert/list-alerts --repo security-alert/github-webhook-SecurityVulnerability-test
 
 # lodash
 
@@ -41,9 +41,9 @@ $ GITHUB_TOKEN="$GITHUB_TOKEN" npx @security-alert/list-alerts --repo azu/github
 - PackageUrl: https://www.npmjs.com/package/lodash
 - PackageVersion: 2.4.2
 - DependenciesType: dependencies
-- PackageManifestUrl: https://github.com/azu/github-webhook-SecurityVulnerability-test/blob/master/package-lock.json
+- PackageManifestUrl: https://github.com/security-alert/github-webhook-SecurityVulnerability-test/blob/master/package-lock.json
 - VulnerableVersionRange: < 4.17.5
-- GitHubAlertUrl: https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/lodash/open
+- GitHubAlertUrl: https://github.com/security-alert/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/lodash/open
 
 
 # lodash
@@ -52,9 +52,9 @@ $ GITHUB_TOKEN="$GITHUB_TOKEN" npx @security-alert/list-alerts --repo azu/github
 - PackageUrl: https://www.npmjs.com/package/lodash
 - PackageVersion: 2.4.2
 - DependenciesType: dependencies
-- PackageManifestUrl: https://github.com/azu/github-webhook-SecurityVulnerability-test/blob/master/package-lock.json
+- PackageManifestUrl: https://github.com/security-alert/github-webhook-SecurityVulnerability-test/blob/master/package-lock.json
 - VulnerableVersionRange: < 4.17.11
-- GitHubAlertUrl: https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/lodash/open
+- GitHubAlertUrl: https://github.com/security-alert/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/lodash/open
 
 
 # minimatch
@@ -63,9 +63,9 @@ $ GITHUB_TOKEN="$GITHUB_TOKEN" npx @security-alert/list-alerts --repo azu/github
 - PackageUrl: https://www.npmjs.com/package/minimatch
 - PackageVersion: 3.0.0
 - DependenciesType: dependencies
-- PackageManifestUrl: https://github.com/azu/github-webhook-SecurityVulnerability-test/blob/master/package-lock.json
+- PackageManifestUrl: https://github.com/security-alert/github-webhook-SecurityVulnerability-test/blob/master/package-lock.json
 - VulnerableVersionRange: < 3.0.2
-- GitHubAlertUrl: https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/minimatch/open
+- GitHubAlertUrl: https://github.com/security-alert/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/minimatch/open
 
 ...(snip)...
 
@@ -73,7 +73,7 @@ $ GITHUB_TOKEN="$GITHUB_TOKEN" npx @security-alert/list-alerts --repo azu/github
 
 ## Changelog
 
-See [Releases page](https://github.com/azu/create-security-alert-issue/releases).
+See [Releases page](https://github.com/security-alert/create-security-alert-issue/releases).
 
 ## Running tests
 
@@ -85,7 +85,7 @@ Install devDependencies and Run `npm test`:
 
 Pull requests and stars are always welcome.
 
-For bugs and feature requests, [please create an issue](https://github.com/azu/create-security-alert-issue/issues).
+For bugs and feature requests, [please create an issue](https://github.com/security-alert/create-security-alert-issue/issues).
 
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`

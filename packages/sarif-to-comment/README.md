@@ -49,11 +49,11 @@ Install with [npm](https://www.npmjs.com/):
 
 ## Examples
 
-- <https://github.com/azu/codeql-scan-example/issues/1>
+- <https://github.com/security-alert/codeql-scan-example/issues/1>
 
 ## Changelog
 
-See [Releases page](https://github.com/azu/security-alert/releases).
+See [Releases page](https://github.com/security-alert/security-alert/releases).
 
 ## Running tests
 
@@ -65,7 +65,7 @@ Install devDependencies and Run `npm test`:
 
 Pull requests and stars are always welcome.
 
-For bugs and feature requests, [please create an issue](https://github.com/azu/security-alert/issues).
+For bugs and feature requests, [please create an issue](https://github.com/security-alert/security-alert/issues).
 
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`

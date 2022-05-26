@@ -24,14 +24,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/azu/security-alert.git"
+    "url": "git+https://github.com/security-alert/security-alert.git"
   },
   "author": "azu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/azu/security-alert/issues"
+    "url": "https://github.com/security-alert/security-alert/issues"
   },
-  "homepage": "https://github.com/azu/security-alert",
+  "homepage": "https://github.com/security-alert/security-alert",
   "workspaces": [
     "packages/*"
   ],

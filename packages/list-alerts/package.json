@@ -10,13 +10,13 @@
     "security",
     "tool"
   ],
-  "homepage": "https://github.com/azu/security-alert",
+  "homepage": "https://github.com/security-alert/security-alert",
   "bugs": {
-    "url": "https://github.com/azu/security-alert/issues"
+    "url": "https://github.com/security-alert/security-alert/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/azu/security-alert.git"
+    "url": "https://github.com/security-alert/security-alert.git"
   },
   "license": "MIT",
   "author": "azu",

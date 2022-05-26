@@ -29,17 +29,17 @@ Using with [npx](https://www.npmjs.com/package/npx):
       --labels    label name. labels are separated , 
       
     Examples
-      $ GITHUB_TOKEN=xxx npx @security-alert/create-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open"
-      $ GITHUB_TOKEN=xxx npx @security-alert/create-issue "https://github.com/azu/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open" --labels "security,package"
+      $ GITHUB_TOKEN=xxx npx @security-alert/create-issue "https://github.com/security-alert/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open"
+      $ GITHUB_TOKEN=xxx npx @security-alert/create-issue "https://github.com/security-alert/github-webhook-SecurityVulnerability-test/network/alert/package-lock.json/axios/open" --labels "security,package"
 ```
 
 ## Example Issue
 
-- <https://github.com/azu/github-webhook-SecurityVulnerability-test/issues/8>
+- <https://github.com/security-alert/github-webhook-SecurityVulnerability-test/issues/8>
 
 ## Changelog
 
-See [Releases page](https://github.com/azu/create-security-alert-issue/releases).
+See [Releases page](https://github.com/security-alert/create-security-alert-issue/releases).
 
 ## Running tests
 
@@ -51,7 +51,7 @@ Install devDependencies and Run `npm test`:
 
 Pull requests and stars are always welcome.
 
-For bugs and feature requests, [please create an issue](https://github.com/azu/create-security-alert-issue/issues).
+For bugs and feature requests, [please create an issue](https://github.com/security-alert/create-security-alert-issue/issues).
 
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`

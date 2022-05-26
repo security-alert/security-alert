@@ -30,14 +30,14 @@ Install with [npm](https://www.npmjs.com/):
       --sarifContentSourceRoot      Base path to sarif scanned source. You can set CodeQL's sourceLocationPrefix as relative value if necessary
       
     Examples
-      # Create an issue to azu/codeql-scan-example from "./test/fixtures/xss.sarif" file
+      # Create an issue to security-alert/codeql-scan-example from "./test/fixtures/xss.sarif" file
       $ GITHUB_TOKEN=xxx npx @security-alert/sarif-to-issue --title "Example Issue" --owner azu --repo codeql-scan-example --sarifContentOwner azu --sarifContentRepo codeql-scan-example --sarifContentBranch master ./test/fixtures/xss.sarif
-      # Create an issue to azu/example-repo with "security" labels
+      # Create an issue to security-alert/example-repo with "security" labels
       $ GITHUB_TOKEN=xxx npx @security-alert/sarif-to-issue output.sarif --title "Example Issue" --owner azu --repo codeql-scan-example --sarifContentOwner azu --sarifContentRepo codeql-scan-example --sarifContentBranch master ./test/fixtures/xss.sarif  --labels "security" 
 
 ## Changelog
 
-See [Releases page](https://github.com/azu/security-alert/releases).
+See [Releases page](https://github.com/security-alert/security-alert/releases).
 
 ## Running tests
 
@@ -49,7 +49,7 @@ Install devDependencies and Run `npm test`:
 
 Pull requests and stars are always welcome.
 
-For bugs and feature requests, [please create an issue](https://github.com/azu/security-alert/issues).
+For bugs and feature requests, [please create an issue](https://github.com/security-alert/security-alert/issues).
 
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`

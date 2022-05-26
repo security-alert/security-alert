@@ -1,4 +1,4 @@
-# @security-alert monorepo [![Actions Status: test](https://github.com/azu/security-alert/workflows/test/badge.svg)](https://github.com/azu/security-alert/actions?query=workflow%3A"test")
+# @security-alert monorepo [![Actions Status: test](https://github.com/security-alert/security-alert/workflows/test/badge.svg)](https://github.com/security-alert/security-alert/actions?query=workflow%3A"test")
 
 A Command Line ToolKit for GitHub Security Alert.
 
@@ -24,7 +24,7 @@ These tools aim to integration [CodeQL](https://securitylab.github.com/tools/cod
 
 ## Changelog
 
-See [Releases page](https://github.com/azu/create-security-alert-issue/releases).
+See [Releases page](https://github.com/security-alert/create-security-alert-issue/releases).
 
 ## Development
 
@@ -43,7 +43,7 @@ See [Releases page](https://github.com/azu/create-security-alert-issue/releases)
 
 Pull requests and stars are always welcome.
 
-For bugs and feature requests, [please create an issue](https://github.com/azu/create-security-alert-issue/issues).
+For bugs and feature requests, [please create an issue](https://github.com/security-alert/create-security-alert-issue/issues).
 
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`

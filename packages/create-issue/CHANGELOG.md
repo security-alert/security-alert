@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.4](https://github.com/security-alert/security-alert/compare/v1.10.3...v1.10.4) (2022-05-26)
+
+**Note:** Version bump only for package @security-alert/create-issue
+
+
+
+
+
 # [1.6.0](https://github.com/azu/security-alert/compare/v1.5.0...v1.6.0) (2022-04-10)
 
 

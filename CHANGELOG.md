@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.4](https://github.com/security-alert/security-alert/compare/v1.10.3...v1.10.4) (2022-05-26)
+
+
+### Bug Fixes
+
+* Fix issuePattern in sarif-to-comment to support PR ([#37](https://github.com/security-alert/security-alert/issues/37)) ([0a30c0d](https://github.com/security-alert/security-alert/commit/0a30c0d728d49c8970fd03e870427a6fb8556d89))
+
+
+
+
+
 ## [1.10.3](https://github.com/azu/security-alert/compare/v1.10.2...v1.10.3) (2022-05-09)
 
 

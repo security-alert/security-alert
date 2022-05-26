@@ -1,6 +1,6 @@
 {
   "name": "@security-alert/create-issue",
-  "version": "1.6.0",
+  "version": "1.10.4",
   "description": "[GitHub] Create an issue from security alert's url.",
   "keywords": [
     "cli",
@@ -60,7 +60,7 @@
     "@npm/types": "^1.0.1",
     "@octokit/graphql": "^4.8.0",
     "@octokit/rest": "^18.12.0",
-    "@security-alert/share": "^1.6.0",
+    "@security-alert/share": "^1.10.4",
     "meow": "^7.0.1"
   },
   "gitHead": "ad7914038cd53ca2b0676071f9da572692d6e171",

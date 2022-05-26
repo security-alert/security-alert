@@ -33,9 +33,9 @@ export async function postComment(options: CreatedOptions): Promise<PostedCommen
     const owner = options.sarifContentOwner;
     const repo = options.sarifContentRepo;
     const branch = options.sarifContentBranch;
-    // https://github.com/owner/repo/issues/85
+    // https://github.com/owner/repo/issues/85 or https://github.com/owner/repo/pull/86
     const issuePattern =
-        /^https:\/\/github.com\/(?<owner>[0-9a-zA-Z-_.]+)\/(?<repo>[0-9a-zA-Z-_.]+)\/issues\/(?<issueNumber>[0-9]+)/;
+        /^https:\/\/github.com\/(?<owner>[0-9a-zA-Z-_.]+)\/(?<repo>[0-9a-zA-Z-_.]+)\/(issues|pull)\/(?<issueNumber>[0-9]+)/;
     const matchObj = issuePattern.exec(options.postingURL);
     const content = JSON.parse(options.sarifContent);
     if (!matchObj || !matchObj.groups) {
@@ -49,8 +49,8 @@ export async function postComment(options: CreatedOptions): Promise<PostedCommen
         return { posted: false, reason: "There are no results in this SARIF run 0, exiting without a comment !" };
     }
     const postingOwner: string = matchObj.groups.owner;
-    const postringRepo: string = matchObj.groups.repo;
-    const postringNumber: number = Number(matchObj.groups.issueNumber);
+    const postingRepo: string = matchObj.groups.repo;
+    const postingNumber: number = Number(matchObj.groups.issueNumber);
     const results = sarifToMarkdown({
         title: options.title,
         owner,
@@ -86,8 +86,8 @@ body: ${body}
         }
         const url = await issueComment({
             owner: postingOwner,
-            repo: postringRepo,
-            issue_number: postringNumber,
+            repo: postingRepo,
+            issue_number: postingNumber,
             body: body,
             token: options.token,
             ghActionAuthentication: options.ghActionAuthenticationMode

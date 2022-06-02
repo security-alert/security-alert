@@ -8,22 +8,20 @@ const sarifDir = path.join(__dirname);
 const xssFilePath = path.join(sarifDir, "xss.sarif");
 
 describe("Pull request", () => {
-    it(`Testing comment to a pull request (dryrun)`, async function () {
+    it(`Testing failure comment to a pull request due to fail-on`, async function () {
         const actualOptions = {
             sarifContent: fs.readFileSync(xssFilePath, "utf-8"),
-            postingURL: "https://github.com/azu/security-alert/pull/1",
+            postingURL: "https://github.com/azu/security-alert/pull/1/fail-on",
             sarifContentOwner: "aa",
             sarifContentRepo: "aa",
             sarifContentBranch: "aa",
+            token: "aa",
             dryRun: true,
-            token: "aa"
+            failon: ["error"]
         };
-        const result = await postComment(actualOptions);
 
-        assert.deepStrictEqual(result, {
-            posted: false, //  error type
-            reason: "This is a dry run", // error message
-            shouldFail: false
-        });
+        assert.rejects(async () => {
+            await postComment(actualOptions);
+        }, Error("Whoops!"));
     });
 });

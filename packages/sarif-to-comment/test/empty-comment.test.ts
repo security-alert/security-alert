@@ -21,7 +21,8 @@ describe("Testing", () => {
 
         assert.deepStrictEqual(result, {
             posted: false, //  error type
-            reason: "There are no results in this SARIF run 0, exiting without a comment !" // error message
+            reason: "There are no results in this SARIF run 0, exiting without a comment !", // error message
+            shouldFail: false
         });
     });
 });

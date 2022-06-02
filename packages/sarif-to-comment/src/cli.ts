@@ -2,6 +2,7 @@ import meow from "meow";
 import { postComment } from "./index";
 import * as fs from "fs";
 const ALLOWED_SEVERITIES = ["warning", "error", "note", "none"] as const;
+const ALLOWED_SEVERITIES_FAILURE = ["warning", "error", "note", "none", "all"] as const;
 
 export function run() {
     const cli = meow(
@@ -19,6 +20,7 @@ export function run() {
       --ruleDetails                 Include rule details in the markdown, might be too big for Github's API, defaults to false
       --simple                      Simplify the output to only give findings grouped by rule, adds helpURI if present
       --severity                    Filter issues by their severity level, warning, error, note, none, set flag for each level      
+      --failon                     Throw an exit error code 1 if an issue with that level was detected, warning, error, note, none, or all, set flag for each
       --title                       Specify a comment title for the report, optional
       --no-suppressedResults        Don't include suppressed results, that are in SARIF suppressions
       --commentUrl                  Post to comment URL. e.g. https://github.com/owner/repo/issues/85
@@ -53,6 +55,10 @@ export function run() {
                     default: false
                 },
                 severity: {
+                    type: "string",
+                    isMultiple: true
+                },
+                failon: {
                     type: "string",
                     isMultiple: true
                 },
@@ -109,6 +115,16 @@ export function run() {
             cli.showHelp(1);
         }
     }
+    if (cli.flags.failon) {
+        const unknownSeverities = cli.flags.failon.filter((s: any) => {
+            return !ALLOWED_SEVERITIES_FAILURE.includes(s);
+        });
+        if (unknownSeverities.length > 0) {
+            console.log(`unrecognized severity defined: ${unknownSeverities.join(",")}
+        Allowed values are: ${ALLOWED_SEVERITIES_FAILURE.join(",")}`);
+            cli.showHelp(1);
+        }
+    }
     const promises = cli.input.map(async (sarifFilePath) => {
         const content = fs.readFileSync(sarifFilePath, "utf-8");
         return await postComment({
@@ -124,6 +140,7 @@ export function run() {
             ruleDetails: cli.flags.ruleDetails,
             simple: cli.flags.simple,
             severity: cli.flags.severity?.length != 0 ? cli.flags.severity : ALLOWED_SEVERITIES,
+            failon: cli.flags.failon?.length != 0 ? cli.flags.failon : false,
             suppressedResults: cli.flags.suppressedResults,
             title: cli.flags.title
         }).then((result) => {
@@ -146,6 +163,19 @@ export function run() {
             });
         if (emptyURLReasons.length > 0) {
             console.log("Some comments were not posted, reasons will be included");
+        }
+        const shouldFailResults = commentsResults.reduce((acc: boolean, result: any) => {
+            return result.shouldFail || acc; // always returns true if there is one of the map values is true
+        }, false);
+
+        if (shouldFailResults) {
+            console.log(
+                postedURLS.concat(emptyURLReasons).join("\n") +
+                    "\nFailing ! An issue with severity " +
+                    cli.flags.failon +
+                    " was found."
+            );
+            process.exit(1);
         }
         return postedURLS.concat(emptyURLReasons).join("\n");
     });

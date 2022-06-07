@@ -71,7 +71,7 @@ export async function postComment(options: CreatedOptions): Promise<PostedCommen
         failOn: options.failon
     })(JSON.parse(options.sarifContent));
     const resultsHasMessage = results.filter((result) => result.hasMessages);
-    const shouldFail = results.map((result) => result.shouldFail);
+    const shouldFail = results.some((result) => result.shouldFail);
 
     const body = resultsHasMessage
         .map((result) => {
@@ -103,6 +103,6 @@ body: ${body}
             ghActionAuthentication: options.ghActionAuthenticationMode
         });
 
-        return { posted: true, commentUrl: url.html_url.toString(), shouldFail: shouldFail.includes(true) };
+        return { posted: true, commentUrl: url.html_url.toString(), shouldFail: shouldFail };
     }
 }

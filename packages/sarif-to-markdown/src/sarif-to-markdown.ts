@@ -110,6 +110,10 @@ export type sarifFormatterOptions = {
      * Which severities should be included ?
      */
     severities?: readonly string[];
+    /**
+     * Which severities should throw an error ?
+     */
+    failOn?: any;
 };
 
 function groupBy(arr: Result[], criteria: any) {
@@ -121,6 +125,23 @@ function groupBy(arr: Result[], criteria: any) {
         return acc;
     }, {});
     return newObj;
+}
+
+// same as filterGroupedResultsBySeverity
+function detectFailure(arr: Result[], failOn: readonly string[], run: Run) {
+    // 1st step, go through run and find rule severities
+    // 2nd step, filter groupedResults and remove rulegroups that don't match the severities filter
+    const ruleSeverityMapping = new Map<string, string>();
+    run.tool.driver?.rules?.forEach((rule: ReportingDescriptor) => {
+        const severity = rule.defaultConfiguration?.level ?? "";
+        ruleSeverityMapping.set(rule.id, severity);
+    });
+
+    // if one of the results uses a rule that has a severity that we should fail on, return true
+    return arr.reduce((acc: boolean, r: Result) => {
+        const sevrule = ruleSeverityMapping.get(r.ruleId ?? "") ?? "";
+        return failOn.includes(sevrule) || acc; // always returns true if there is one of the map values is true
+    }, false);
 }
 
 function createGroupedResultsMarkdown(groupedResults: any, run: any, options: sarifFormatterOptions) {
@@ -202,12 +223,14 @@ type sarifToMarkdownResult = {
      * If the body has not results, `hasMessages` will be `false`
      */
     hasMessages: boolean;
+    shouldFail: boolean;
 };
 
 export const sarifToMarkdown = (options: sarifFormatterOptions): ((sarifLog: Log) => sarifToMarkdownResult[]) => {
     const suppressedResultsFlag = options.suppressedResults !== undefined ? options.suppressedResults : true;
     const simpleMode = options.simple !== undefined ? options.simple : false;
     const severities = options.severities ?? ["warning", "error", "note", "none"];
+    const failOn = options.failOn ?? [""]; // if not set, don't fail for anything
 
     return (sarifLog: Log) => {
         return sarifLog.runs.map((run: any) => {
@@ -221,6 +244,8 @@ export const sarifToMarkdown = (options: sarifFormatterOptions): ((sarifLog: Log
             const filteredResults = filterGroupedResultsBySeverity(groupedResults, severities, run);
             const groupedResultsMarkdown = createGroupedResultsMarkdown(filteredResults, run, options);
             const hasMessage = run.results && run.results.length > 0 && Object.keys(filteredResults).length > 0;
+            const shouldFail = failOn != null ? detectFailure(run.results, failOn, run) : false;
+
             /* Results
             - rule id
             - message
@@ -275,12 +300,14 @@ Nothing here.
                         "\n" +
                         ruleDetails +
                         toolInfo,
-                    hasMessages: hasMessage
+                    hasMessages: hasMessage,
+                    shouldFail: shouldFail
                 };
             }
             return {
                 body: title + results + "\n" + suppressedResultsText + "\n" + ruleInfo + "\n" + toolInfo,
-                hasMessages: hasMessage
+                hasMessages: hasMessage,
+                shouldFail: shouldFail
             };
         });
     };

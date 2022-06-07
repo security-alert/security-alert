@@ -38,6 +38,11 @@ describe("Snapshot testing", () => {
                 assert.strictEqual(actualResultsMd, expectedContent);
                 assert.strictEqual(actualResults[0].hasMessages, false);
             }
+            if (normalizedTestName === "simple semgrep juiceshop throw fail") {
+                assert.strictEqual(actualResultsMd, expectedContent);
+                assert.strictEqual(actualResults[0].hasMessages, true);
+                assert.strictEqual(actualResults[0].shouldFail, true);
+            }
         });
     });
 });

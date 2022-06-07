@@ -24,9 +24,12 @@ export type CreatedOptions = {
     suppressedResults?: boolean;
     simple?: boolean;
     severity?: readonly string[];
+    failon?: any;
 };
 
-export type PostedCommentResult = { posted: true; commentUrl: string } | { posted: false; reason: string };
+export type PostedCommentResult =
+    | { posted: true; commentUrl: string; shouldFail: boolean }
+    | { posted: false; reason: string; shouldFail: boolean };
 
 export async function postComment(options: CreatedOptions): Promise<PostedCommentResult> {
     const dryRun = options.dryRun !== undefined ? options.dryRun : false;
@@ -46,7 +49,11 @@ export async function postComment(options: CreatedOptions): Promise<PostedCommen
         );
     }
     if (content?.runs?.[0]?.results.length === 0) {
-        return { posted: false, reason: "There are no results in this SARIF run 0, exiting without a comment !" };
+        return {
+            posted: false,
+            reason: "There are no results in this SARIF run 0, exiting without a comment !",
+            shouldFail: false
+        };
     }
     const postingOwner: string = matchObj.groups.owner;
     const postingRepo: string = matchObj.groups.repo;
@@ -60,9 +67,12 @@ export async function postComment(options: CreatedOptions): Promise<PostedCommen
         details: options.ruleDetails,
         suppressedResults: options.suppressedResults,
         simple: options.simple,
-        severities: options.severity
+        severities: options.severity,
+        failOn: options.failon
     })(JSON.parse(options.sarifContent));
     const resultsHasMessage = results.filter((result) => result.hasMessages);
+    const shouldFail = results.some((result) => result.shouldFail);
+
     const body = resultsHasMessage
         .map((result) => {
             return result.body;
@@ -79,10 +89,10 @@ issue: ${options.postingURL}
 title: ${options.title}
 body: ${body}
 `);
-        return { posted: false, reason: "This is a dry run" };
+        return { posted: false, reason: "This is a dry run", shouldFail: false };
     } else {
         if (resultsHasMessage.length === 0) {
-            return { posted: false, reason: "Markdown extracted from SARIF was empty" };
+            return { posted: false, reason: "Markdown extracted from SARIF was empty", shouldFail: false };
         }
         const url = await issueComment({
             owner: postingOwner,
@@ -92,6 +102,7 @@ body: ${body}
             token: options.token,
             ghActionAuthentication: options.ghActionAuthenticationMode
         });
-        return { posted: true, commentUrl: url.html_url.toString() };
+
+        return { posted: true, commentUrl: url.html_url.toString(), shouldFail: shouldFail };
     }
 }

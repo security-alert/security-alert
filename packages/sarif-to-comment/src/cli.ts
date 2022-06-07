@@ -164,9 +164,7 @@ export function run() {
         if (emptyURLReasons.length > 0) {
             console.log("Some comments were not posted, reasons will be included");
         }
-        const shouldFailResults = commentsResults.reduce((acc: boolean, result: any) => {
-            return result.shouldFail || acc; // always returns true if there is one of the map values is true
-        }, false);
+        const shouldFailResults = commentsResults.some((result: any) => result.shouldFail);
 
         if (shouldFailResults) {
             const errorMessage =

@@ -169,13 +169,12 @@ export function run() {
         }, false);
 
         if (shouldFailResults) {
-            console.log(
+            const errorMessage =
                 postedURLS.concat(emptyURLReasons).join("\n") +
-                    "\nFailing ! An issue with severity " +
-                    cli.flags.failon +
-                    " was found."
-            );
-            process.exit(1);
+                "\nFailing ! An issue with severity " +
+                cli.flags.failon +
+                " was found.";
+            throw new Error(errorMessage);
         }
         return postedURLS.concat(emptyURLReasons).join("\n");
     });

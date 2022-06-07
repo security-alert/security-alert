@@ -20,7 +20,7 @@ export function run() {
       --ruleDetails                 Include rule details in the markdown, might be too big for Github's API, defaults to false
       --simple                      Simplify the output to only give findings grouped by rule, adds helpURI if present
       --severity                    Filter issues by their severity level, warning, error, note, none, set flag for each level      
-      --failon                     Throw an exit error code 1 if an issue with that level was detected, warning, error, note, none, or all, set flag for each
+      --failon                      Throw an exit error code 1 if an issue with that level was detected, warning, error, note, none, or all, set flag for each
       --title                       Specify a comment title for the report, optional
       --no-suppressedResults        Don't include suppressed results, that are in SARIF suppressions
       --commentUrl                  Post to comment URL. e.g. https://github.com/owner/repo/issues/85

@@ -19,9 +19,12 @@ describe("Pull request", () => {
             dryRun: true,
             failon: ["error"]
         };
+        const result = await postComment(actualOptions);
 
-        assert.rejects(async () => {
-            await postComment(actualOptions);
-        }, Error("Whoops!"));
+        assert.deepStrictEqual(result, {
+            posted: false, //  error type
+            reason: "This is a dry run",
+            shouldFail: true
+        });
     });
 });

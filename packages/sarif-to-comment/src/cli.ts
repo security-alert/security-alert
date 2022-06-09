@@ -19,8 +19,8 @@ export function run() {
       --action                      Authentication mode for the token, defaults to PAT, if set, switches to Github Action
       --ruleDetails                 Include rule details in the markdown, might be too big for Github's API, defaults to false
       --simple                      Simplify the output to only give findings grouped by rule, adds helpURI if present
-      --severity                    Filter issues by their severity level, warning, error, note, none, set flag for each level      
-      --failon                      Throw an exit error code 1 if an issue with that level was detected, warning, error, note, none, or all, set flag for each
+      --severity                    Filter output issues by their severity level, warning, error, note, none, set flag for each level      
+      --failon                      Throw an exit error code 1 if an issue with that level was detected, warning, error, note, none, or all, set flag for each, NOT affected by severity filtering
       --title                       Specify a comment title for the report, optional
       --no-suppressedResults        Don't include suppressed results, that are in SARIF suppressions
       --commentUrl                  Post to comment URL. e.g. https://github.com/owner/repo/issues/85

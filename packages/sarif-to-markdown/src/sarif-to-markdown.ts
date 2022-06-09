@@ -230,8 +230,7 @@ export const sarifToMarkdown = (options: sarifFormatterOptions): ((sarifLog: Log
     const suppressedResultsFlag = options.suppressedResults !== undefined ? options.suppressedResults : true;
     const simpleMode = options.simple !== undefined ? options.simple : false;
     const severities = options.severities ?? ["warning", "error", "note", "none"];
-    const failOn = options.failOn ?? [""]; // if not set, don't fail for anything
-
+    const failOn = options.failOn ?? false; // if not set, don't fail for anything
     return (sarifLog: Log) => {
         return sarifLog.runs.map((run: any) => {
             const title = options.title ? `# ${options.title}\n` : "# Report";
@@ -244,7 +243,7 @@ export const sarifToMarkdown = (options: sarifFormatterOptions): ((sarifLog: Log
             const filteredResults = filterGroupedResultsBySeverity(groupedResults, severities, run);
             const groupedResultsMarkdown = createGroupedResultsMarkdown(filteredResults, run, options);
             const hasMessage = run.results && run.results.length > 0 && Object.keys(filteredResults).length > 0;
-            const shouldFail = failOn != null ? detectFailure(run.results, failOn, run) : false;
+            const shouldFail = failOn === false ? false : detectFailure(run.results, failOn, run);
 
             /* Results
             - rule id

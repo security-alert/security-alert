@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.7](https://github.com/security-alert/security-alert/compare/v1.10.6...v1.10.7) (2022-06-09)
+
+**Note:** Version bump only for package security-alert
+
+
+
+
+
 ## [1.10.6](https://github.com/security-alert/security-alert/compare/v1.10.5...v1.10.6) (2022-06-09)
 
 **Note:** Version bump only for package security-alert

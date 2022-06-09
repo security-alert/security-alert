@@ -89,7 +89,7 @@ issue: ${options.postingURL}
 title: ${options.title}
 body: ${body}
 `);
-        return { posted: false, reason: "This is a dry run", shouldFail: false };
+        return { posted: false, reason: "This is a dry run", shouldFail: shouldFail };
     } else {
         if (resultsHasMessage.length === 0) {
             return { posted: false, reason: "Markdown extracted from SARIF was empty", shouldFail: false };

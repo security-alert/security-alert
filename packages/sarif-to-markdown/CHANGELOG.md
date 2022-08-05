@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.8](https://github.com/security-alert/security-alert/compare/v1.10.7...v1.10.8) (2022-08-05)
+
+
+### Bug Fixes
+
+* Fix range URL format ([#51](https://github.com/security-alert/security-alert/issues/51)) ([87a5a5b](https://github.com/security-alert/security-alert/commit/87a5a5b8985730cbffaf0b8032b5d548d06305b1))
+
+
+
+
+
 ## [1.10.7](https://github.com/security-alert/security-alert/compare/v1.10.6...v1.10.7) (2022-06-09)
 
 **Note:** Version bump only for package @security-alert/sarif-to-markdown

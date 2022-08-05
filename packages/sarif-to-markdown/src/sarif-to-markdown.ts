@@ -55,7 +55,7 @@ const createCodeURL = (result: Result, options: sarifFormatterOptions): string[]
         }
         const lineNumber =
             physicalLocation.region.endLine !== undefined
-                ? `L${physicalLocation.region.startLine}-${physicalLocation.region.endLine}`
+                ? `L${physicalLocation.region.startLine}-L${physicalLocation.region.endLine}`
                 : `L${physicalLocation.region.startLine}`;
         return urlJoin(
             githubHost,

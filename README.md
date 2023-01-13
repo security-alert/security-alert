@@ -34,10 +34,19 @@ See [Releases page](https://github.com/security-alert/create-security-alert-issu
     
 ## Release Workflow
 
-    git checkout -b release-branch
-    git push -u
-    GH_TOKEN=xxx npm run versionup
-    npm run release # use npm instead of yarn
+1. Create Release PR via dispatching [.github/workflows/create-release-pr.yml](https://github.com/security-alert/security-alert/actions/workflows/create-release-pr.yml)
+  - You can select new version with semver(patch,minor,major)
+2. [CI] Create Release PR
+  - Update `lerna.json`'s `version` and `packages/*/package.json`'s `version`
+  - Fill the Pull Request body with [Automatically generated release notes](https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes)
+  - e.g. https://github.com/azu/monorepo-github-releases/pull/18
+3. Review Release PR
+  - You can modify PR body
+4. Merge Release PR
+5. [CI] Publish new version to npm and GitHub Release
+  - The release note content is same to PR body
+  - CI copy to release note from PR body when merge the PR
+  - e.g. https://github.com/azu/monorepo-github-releases/releases/tag/v1.6.3
 
 ## Contributing
 

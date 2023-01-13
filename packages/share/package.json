@@ -1,6 +1,6 @@
 {
   "name": "@security-alert/share",
-  "version": "1.10.4",
+  "version": "1.10.9",
   "description": "security alert shared lib",
   "keywords": [
     "cli",

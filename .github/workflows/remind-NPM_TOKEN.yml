@@ -21,7 +21,8 @@ jobs:
             `NPM_TOKEN` will be expired.
             Please update `NPM_TOKEN` of GitHub Actions.
             
-            - https://github.com/security-alert/security-alert/settings/secrets/actions/NPM_TOKEN
+            - Create new granular-access-tokens for security-alert
+            - Update https://github.com/security-alert/security-alert/settings/secrets/actions/NPM_TOKEN
           pinned: false
           close-previous: true
         env:

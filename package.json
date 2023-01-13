@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "description": "security-alert monorepo",
   "devDependencies": {
-    "lerna": "^4.0.0",
-    "lint-staged": "^12.3.7",
+    "lerna": "^6.4.1",
+    "lint-staged": "^13.1.0",
     "prettier": "^2.6.2"
   },
   "scripts": {

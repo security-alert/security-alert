@@ -60,12 +60,6 @@ For bugs and feature requests, [please create an issue](https://github.com/secur
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
 
-## Releases
-
-1. Run workflow on [create-release-pr.yml](https://github.com/security-alert/security-alert/actions/workflows/create-release-pr.yml)
-2. Review the release PR and merge
-3. Release it!
-
 When fail the release, please run workflow on [release.yml](https://github.com/security-alert/security-alert/actions/workflows/release.yml) again.
 
 ## Author

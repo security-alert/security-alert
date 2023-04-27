@@ -25,7 +25,7 @@ ${run.tool.driver?.rules?.map((rule: any) => {
     return `\n
     - ${rule.id} [${severity}] \n
     > ${rule.shortDescription?.text}\n`;
-})}`;
+})}</details>`;
 }
 
 function createToolInfo(run: Run) {

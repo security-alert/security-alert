@@ -62,11 +62,11 @@ For bugs and feature requests, [please create an issue](https://github.com/secur
 
 ## Releases
 
-Release all packages via following command:
+1. Run workflow on [create-release-pr.yml](https://github.com/security-alert/security-alert/actions/workflows/create-release-pr.yml)
+2. Review the release PR and merge
+3. Release it!
 
-    GH_TOKEN="${GITHUB_TOKEN}" npm run versionup -- --create-release=github && npm run release -- --yes
-    # or just release and write Release Note manually
-    # npm run versionup && npm run release -- --yes
+When fail the release, please run workflow on [release.yml](https://github.com/security-alert/security-alert/actions/workflows/release.yml) again.
 
 ## Author
 

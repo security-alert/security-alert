@@ -1,6 +1,6 @@
 {
   "name": "@security-alert/sarif-to-comment",
-  "version": "1.10.9",
+  "version": "1.10.10",
   "description": "post comment to GitHub issue/pull requests",
   "keywords": [
     "sarif",
@@ -45,7 +45,7 @@
   "dependencies": {
     "@octokit/auth-action": "^1.3.3",
     "@octokit/rest": "^18.0.3",
-    "@security-alert/sarif-to-markdown": "^1.10.9",
+    "@security-alert/sarif-to-markdown": "^1.10.10",
     "meow": "^9.0.0"
   },
   "devDependencies": {

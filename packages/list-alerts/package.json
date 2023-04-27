@@ -1,6 +1,6 @@
 {
   "name": "@security-alert/list-alerts",
-  "version": "1.10.9",
+  "version": "1.10.10",
   "description": "[GitHub] listing security alert.",
   "keywords": [
     "cli",
@@ -60,7 +60,7 @@
     "@npm/types": "^1.0.2",
     "@octokit/graphql": "^4.5.3",
     "@octokit/rest": "^18.0.3",
-    "@security-alert/share": "^1.10.9",
+    "@security-alert/share": "^1.10.10",
     "meow": "^7.0.1"
   },
   "gitHead": "ad7914038cd53ca2b0676071f9da572692d6e171",

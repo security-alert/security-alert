@@ -133,7 +133,7 @@ function detectFailure(arr: Result[], failOn: readonly string[], run: Run) {
     // 2nd step, filter groupedResults and remove rulegroups that don't match the severities filter
     const ruleSeverityMapping = new Map<string, string>();
     run.tool.driver?.rules?.forEach((rule: ReportingDescriptor) => {
-        const severity = rule.defaultConfiguration?.level ?? "";
+        const severity = getRuleSeverity(rule);
         ruleSeverityMapping.set(rule.id, severity);
     });
 
@@ -145,55 +145,64 @@ function detectFailure(arr: Result[], failOn: readonly string[], run: Run) {
 }
 
 function createGroupedResultsMarkdown(groupedResults: any, run: any, options: sarifFormatterOptions) {
-    let groupedResultsMarkdown = "";
-    for (const rule in groupedResults) {
-        const ruleMatch = run.tool.driver.rules.filter((r: any) => {
-            return r.id == rule;
-        });
-        const severityLevel = ruleMatch[0].defaultConfiguration?.level?.toUpperCase() ?? "";
-        const helpUri = ruleMatch[0].helpUri !== undefined ? "[[HELP LINK](" + ruleMatch[0].helpUri + ")]" ?? "" : "";
-        groupedResultsMarkdown +=
-            `- **${"[" + severityLevel + "]** **[" + rule + "]** " + helpUri} \`${
-                groupedResults[rule][0] ? escape(groupedResults[rule][0].message.text) : ""
-            }\`` + "\n";
-        for (const result of groupedResults[rule]) {
-            const properResult = result as unknown as Result;
-            if (properResult.suppressions === undefined) {
-                groupedResultsMarkdown += "    - " + createCodeURL(result, options) + "\n";
-            }
+    let markdown = "";
+    for (const ruleId in groupedResults) {
+        const rule = getRuleByRuleId(ruleId, run);
+        if (rule) {
+            markdown += createRuleMarkdown(rule, groupedResults[ruleId], options, false);
         }
     }
-    return groupedResultsMarkdown;
+    return markdown;
 }
 
 function createGroupedSuppressedResultsMarkdown(groupedResults: any, run: any, options: sarifFormatterOptions) {
-    let groupedSuppressedResultsMD = "";
-    let suppressedCounter = 0;
-    for (const rule in groupedResults) {
-        const groupContainsSuppressed =
-            groupedResults[rule].filter((r: Result) => r.suppressions !== undefined).length > 0;
-        if (groupContainsSuppressed) {
-            const ruleMatch = run.tool.driver.rules.filter((r: any) => {
-                return r.id == rule;
-            });
-            const helpUri =
-                ruleMatch[0].helpUri !== undefined ? "[[HELP LINK](" + ruleMatch[0].helpUri + ")]" ?? "" : "";
-            const severityLevel = ruleMatch[0].defaultConfiguration?.level?.toUpperCase() ?? "";
-
-            groupedSuppressedResultsMD +=
-                `- **${"[" + severityLevel + "]** **[" + rule + "]** " + helpUri} \`${
-                    groupedResults[rule][0] ? escape(groupedResults[rule][0].message.text) : ""
-                }\`` + "\n";
-            for (const result of groupedResults[rule]) {
-                const properResult = result as unknown as Result;
-                if (properResult.suppressions !== undefined) {
-                    suppressedCounter += 1;
-                    groupedSuppressedResultsMD += "    - " + createCodeURL(result, options) + "\n";
-                }
+    let markdown = "";
+    for (const ruleId in groupedResults) {
+        const rule = getRuleByRuleId(ruleId, run);
+        if (rule) {
+            const results = groupedResults[ruleId];
+            const containsSupressed = results.filter((r: Result) => r.suppressions !== undefined).length > 0;
+            if (containsSupressed) {
+                markdown += createRuleMarkdown(rule, groupedResults[ruleId], options, true);
             }
         }
     }
-    return { groupedSuppressedResultsMD, suppressedCounter };
+    return markdown;
+}
+
+function createRuleMarkdown(
+    rule: ReportingDescriptor,
+    results: Result[],
+    options: sarifFormatterOptions,
+    onlySuppressed: boolean
+) {
+    const result = results[0];
+    const resultSeverity = getResultSeverity(result, rule);
+    const formattedSeverity = formatSeverity(resultSeverity);
+    const helpUri = rule.helpUri ? `[[HELP LINK](${rule.helpUri})]` : "";
+
+    let markdown = `- ${formattedSeverity} **[${rule.id}]** ${helpUri} \`${escape(result.message.text)}\`\n`;
+    for (const result of results) {
+        if (onlySuppressed === (result.suppressions !== undefined)) {
+            markdown += createResultMarkdown(result, options);
+        }
+    }
+    return markdown;
+}
+
+function createResultMarkdown(result: Result, options: sarifFormatterOptions) {
+    let markdown = "";
+
+    const codeUrls = createCodeURL(result, options);
+    codeUrls.forEach((url) => {
+        markdown += `    - ${url}\n`;
+    });
+
+    return markdown;
+}
+
+function formatSeverity(severity: string) {
+    return `**[${severity.toUpperCase()}]**`;
 }
 
 function filterGroupedResultsBySeverity(groupedResults: any, severities: readonly string[], run: Run) {
@@ -201,7 +210,7 @@ function filterGroupedResultsBySeverity(groupedResults: any, severities: readonl
     // 2nd step, filter groupedResults and remove rulegroups that don't match the severities filter
     const ruleSeverityMapping = new Map<string, string>();
     run.tool.driver?.rules?.forEach((rule: ReportingDescriptor) => {
-        const severity = rule.defaultConfiguration?.level ?? "";
+        const severity = getRuleSeverity(rule);
         ruleSeverityMapping.set(rule.id, severity);
     });
 
@@ -265,7 +274,7 @@ Nothing here.
 
 `;
 
-            const { groupedSuppressedResultsMD, suppressedCounter } = createGroupedSuppressedResultsMarkdown(
+            const groupedSuppressedResultsMarkdown = createGroupedSuppressedResultsMarkdown(
                 filteredResults,
                 run,
                 options
@@ -274,11 +283,11 @@ Nothing here.
             // careful, double ternary... first check if we should include suppressedresults (return empty string)
             // then check if there are results, if none, return default string
             const suppressedResultsText = suppressedResultsFlag
-                ? run.results && suppressedCounter > 0
+                ? run.results && groupedSuppressedResultsMarkdown
                     ? `
 ## Suppressed results
 
-${groupedSuppressedResultsMD}
+${groupedSuppressedResultsMarkdown}
 `
                     : `
 ## Suppressed Results
@@ -311,3 +320,19 @@ Nothing here.
         });
     };
 };
+
+function getResultSeverity(result: Result, rule?: ReportingDescriptor) {
+    // Result severity takes precedence over rule's default severity.
+    // See 5.17.4 (https://github.com/sarif-standard/sarif-spec-v1)
+    return result.level ?? getRuleSeverity(rule);
+}
+
+function getRuleSeverity(rule?: ReportingDescriptor) {
+    // according to Sarif spec - if level is absent, assume 'warning' by default.
+    // see https://github.com/sarif-standard/sarif-spec-v1
+    return rule?.defaultConfiguration?.level ?? "warning";
+}
+
+function getRuleByRuleId(ruleId: string, run: Run) {
+    return run.tool.driver.rules?.find((r) => r.id == ruleId);
+}

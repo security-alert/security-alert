@@ -22,7 +22,7 @@
     - js/xss [error] 
 
     > Client-side cross-site scripting
-
+</details>
 <details><summary>Details</summary>
 <pre>{
     "driver": {

@@ -21,7 +21,7 @@ Nothing here.
     - js/xss [error] 
 
     > Client-side cross-site scripting
-
+</details>
 
 ## Tool information
 - Name: CodeQL command-line toolchain

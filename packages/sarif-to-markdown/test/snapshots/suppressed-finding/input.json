@@ -899,7 +899,8 @@
                 "text": "user-provided value"
               }
             }
-          ]
+          ],
+          "suppressions": []
         }
       ],
       "newlineSequences": [

@@ -158,7 +158,7 @@ function createGroupedResultsMarkdown(groupedResults: any, run: any, options: sa
             }\`` + "\n";
         for (const result of groupedResults[rule]) {
             const properResult = result as unknown as Result;
-            if (properResult.suppressions === undefined) {
+            if (properResult.suppressions === undefined || (Array.isArray(properResult.suppressions) && properResult.suppressions.length === 0)) {
                 groupedResultsMarkdown += "    - " + createCodeURL(result, options) + "\n";
             }
         }
@@ -187,8 +187,11 @@ function createGroupedSuppressedResultsMarkdown(groupedResults: any, run: any, o
             for (const result of groupedResults[rule]) {
                 const properResult = result as unknown as Result;
                 if (properResult.suppressions !== undefined) {
-                    suppressedCounter += 1;
-                    groupedSuppressedResultsMD += "    - " + createCodeURL(result, options) + "\n";
+                    //Typescript isn't liking checking Array.isArray as an OR clause in the array, so let's do it here
+                    if (properResult.suppressions.length > 0) {
+                        suppressedCounter += 1;
+                        groupedSuppressedResultsMD += "    - " + createCodeURL(result, options) + "\n";
+                    }
                 }
             }
         }

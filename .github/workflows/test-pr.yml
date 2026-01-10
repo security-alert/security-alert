@@ -7,6 +7,10 @@ on:
     - github_action_authentication
   workflow_dispatch:
 
+permissions:
+  contents: read
+  issues: write
+
 env:
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
@@ -16,10 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Fetch project source
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
         with:
-          node-version: '14'
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
       - name: yarn install and build
         run: |
           npm install --global cross-env & \

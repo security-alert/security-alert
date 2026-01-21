@@ -1061,7 +1061,7 @@
     - python.docker.security.audit.docker-arbitrary-container-run.docker-arbitrary-container-run [undefined] 
 
     > If unverified user data can reach the `run` or `create` method it can result in running arbitrary container.
-
+</details>
 
 ## Tool information
 - Name: semgrep
